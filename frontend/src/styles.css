@@ -1,0 +1,46 @@
+/* You can add global styles to this file, and also import other style files */
+@import url("https://unpkg.com/98.css");
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
+
+:root {
+  --bg-desktop: #3a333a; /* fondo general*/
+  --bg-window: #d2cabd; /* fondo base */
+  --border-3d: #6c6c6c; /* sombra/borde  */
+  --accent-terminal: #88c090; /* acento terminal  */
+  --accent-pink: #ff3399; /* acento artístico 1 */
+  --accent-magenta: #990066; /* acento artístico 2 */
+  --text-main: #000; /* texto de terminal / texto oscuro */
+  --accent-select: #cc3333; /* acento de selección */
+  --color-light-highlight: #ffffff; /* luz blanca */
+  --color-dark-shadow: #6c6c6c; /* sombra gris oscuro */
+  --color-medium-gray: #c0c0c0; /* gris neutro de la barra de tareas */
+  --color-input-sunken: #aaaaaa; /* area del icono de input */
+  --color-shadow-medium: #808080; /* sombra media */
+
+  --bg-taskbar: var(--color-medium-gray);
+  --bg-button: #c6c6c6;
+  --tab-bg-sunken: #b0b0b0;
+  --color-border-final: #000;
+  --accent-selection: #ff5555;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  background: url('assets/images/background-purple.png') center center fixed no-repeat;
+  background-size: cover;
+}
+
+/* Override 98.css fonts with Ubuntu */
+body,
+button,
+input,
+select,
+textarea,
+* {
+  font-family: Ubuntu, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}

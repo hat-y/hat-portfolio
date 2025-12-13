@@ -1,0 +1,59 @@
+<header class="taskbar" role="toolbar">
+  <!-- Botón Home -->
+  <div class="start-section">
+    <button
+      class="start-button"
+      [class.is-pressed]="showStartMenu()"
+      (click)="toggleStartMenu()"
+      type="button"
+      aria-label="Home"
+      [attr.aria-expanded]="showStartMenu()">
+      <svg class="start-icon" width="14" height="14" viewBox="0 0 16 16">
+        <rect x="1" y="1" width="6" height="6" fill="#f65314" stroke="#000" stroke-width="0.3"/>
+        <rect x="8.5" y="1" width="6" height="6" fill="#7cbb00" stroke="#000" stroke-width="0.3"/>
+        <rect x="1" y="8.5" width="6" height="6" fill="#00a1f1" stroke="#000" stroke-width="0.3"/>
+        <rect x="8.5" y="8.5" width="6" height="6" fill="#ffbb00" stroke="#000" stroke-width="0.3"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Separador -->
+  <div class="taskbar-separator"></div>
+
+  <!-- Tabs/Ventanas abiertas -->
+  <nav class="taskbar-tabs" role="tablist">
+    @for (tab of tabs(); track tab.id) {
+      <button
+        class="taskbar-tab"
+        [class.is-active]="tab.active"
+        (click)="selectTab(tab.id)"
+        type="button"
+        role="tab"
+        [attr.aria-selected]="tab.active"
+        [attr.aria-controls]="tab.id + '-content'">
+        <svg class="tab-icon" width="12" height="12" viewBox="0 0 16 16" fill="currentColor">
+          <rect width="13" height="11" x="1.5" y="2.5" fill="none" stroke="currentColor" stroke-width="1"/>
+          <rect width="13" height="2" x="1.5" y="2.5" fill="currentColor"/>
+        </svg>
+        <span class="tab-title">{{ tab.title }}</span>
+      </button>
+    }
+  </nav>
+
+  <!-- System Tray -->
+  <div class="systray">
+    <button class="systray-icon" type="button" title="Network" aria-label="Network">
+      <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M2 4h2v2H2V4zm4 0h2v2H6V4zm4 0h2v2h-2V4zm-8 4h2v2H2V8zm4 0h2v2H6V8zm4 0h2v2h-2V8zm-8 4h2v2H2v-2zm4 0h2v2H6v-2zm4 0h2v2h-2v-2z"/>
+      </svg>
+    </button>
+    <button class="systray-icon" type="button" title="Volume" aria-label="Volume">
+      <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M5 5v6H3V5h2zm2 0 4-3v12l-4-3V5z"/>
+      </svg>
+    </button>
+    <button class="systray-icon" type="button" title="Clock" aria-label="Clock">
+      {{ currentTime() }}
+    </button>
+  </div>
+</header>
