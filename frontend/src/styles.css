@@ -9,7 +9,7 @@
   --accent-terminal: #88c090; /* acento terminal  */
   --accent-pink: #ff3399; /* acento artístico 1 */
   --accent-magenta: #990066; /* acento artístico 2 */
-  --text-main: #000; /* texto de terminal / texto oscuro */
+  --text-main: #2d2d2d; /* texto de terminal / texto oscuro */
   --accent-select: #cc3333; /* acento de selección */
   --color-light-highlight: #ffffff; /* luz blanca */
   --color-dark-shadow: #6c6c6c; /* sombra gris oscuro */
@@ -17,7 +17,7 @@
   --color-input-sunken: #aaaaaa; /* area del icono de input */
   --color-shadow-medium: #808080; /* sombra media */
 
-  --bg-taskbar: var(--color-medium-gray);
+  --bg-taskbar: #d1cabc;
   --bg-button: #c6c6c6;
   --tab-bg-sunken: #b0b0b0;
   --color-border-final: #000;
