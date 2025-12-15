@@ -1,0 +1,51 @@
+<div class="file-manager-window" [class.is-maximized]="isMaximized" [ngStyle]="{'top': windowTop, 'left': windowLeft, 'width': windowWidth, 'height': windowHeight, 'z-index': windowZIndex}" (click)="navigationService.setActiveTab('file-manager')">
+  <div class="file-manager-header">
+    <div class="title-bar">
+      <span class="title-text">📁 Skills - {{ currentPath() }}</span>
+      <div class="window-controls">
+        <button class="minimize-btn" (click)="minimizeWindow(); $event.stopPropagation()" title="Minimize">_</button>
+        <button class="maximize-btn" (click)="maximizeWindow(); $event.stopPropagation()" title="Maximize">□</button>
+        <button class="close-btn" (click)="closeWindow(); $event.stopPropagation()" title="Close">×</button>
+      </div>
+    </div>
+    <div class="toolbar">
+      @if (currentCategory()) {
+        <button class="back-btn" (click)="goBack()">
+          <span>←</span> Back
+        </button>
+      }
+      <div class="path">{{ currentPath() }}</div>
+    </div>
+  </div>
+
+  <div class="file-manager-content">
+    @if (!currentCategory()) {
+      <!-- Vista de carpetas principales -->
+      <div class="folders-grid">
+        @for (category of categories; track category.folder) {
+          <div class="folder-item" (click)="openFolder(category)">
+            <div class="folder-icon">{{ category.icon }}</div>
+            <div class="folder-name">{{ category.name }}</div>
+          </div>
+        }
+      </div>
+    } @else {
+      <!-- Vista de skills dentro de una categoría -->
+      <div class="skills-list">
+        <div class="category-header">
+          <span class="category-icon">{{ currentCategory()!.icon }}</span>
+          <h2>{{ currentCategory()!.name }}</h2>
+        </div>
+        @for (skill of currentCategory()!.skills; track skill.name) {
+          <div class="skill-item">
+            <div class="skill-header">
+              <span class="skill-name">{{ skill.name }}</span>
+              <span class="skill-rating">{{ getStars(skill.rating) }}</span>
+            </div>
+            <div class="skill-description">{{ skill.description }}</div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>

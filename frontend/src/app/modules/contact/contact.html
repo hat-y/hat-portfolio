@@ -1,0 +1,43 @@
+<div class="contact-window" [class.is-maximized]="isMaximized" [ngStyle]="{'top': windowTop, 'left': windowLeft, 'width': windowWidth, 'height': windowHeight, 'z-index': windowZIndex}" (click)="navigationService.setActiveTab('contact')">
+  <div class="contact-header">
+    <div class="title-bar">
+      <span class="window-title">📧 Contact & CV</span>
+      <div class="window-controls">
+        <button class="minimize-btn" (click)="minimizeWindow(); $event.stopPropagation()" title="Minimize">_</button>
+        <button class="maximize-btn" (click)="maximizeWindow(); $event.stopPropagation()" title="Maximize">□</button>
+        <button class="close-btn" (click)="closeWindow(); $event.stopPropagation()" title="Close">×</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="contact-content">
+    <h2>Let's Connect!</h2>
+    
+    <div class="contact-methods">
+      <a href="mailto:tu.email@example.com" class="contact-item">
+        <span class="contact-icon">📧</span>
+        <span class="contact-label">Email</span>
+        <span class="contact-value">tu.email&#64;example.com</span>
+      </a>
+      
+      <a href="https://linkedin.com/in/tu-perfil" target="_blank" class="contact-item">
+        <span class="contact-icon">💼</span>
+        <span class="contact-label">LinkedIn</span>
+        <span class="contact-value">linkedin.com/in/tu-perfil</span>
+      </a>
+      
+      <a href="https://github.com/tu-usuario" target="_blank" class="contact-item">
+        <span class="contact-icon">💻</span>
+        <span class="contact-label">GitHub</span>
+        <span class="contact-value">github.com/tu-usuario</span>
+      </a>
+    </div>
+
+    <div class="cv-section">
+      <button class="download-cv-btn" (click)="downloadCV()">
+        <span>📄</span>
+        <span>Download CV</span>
+      </button>
+    </div>
+  </div>
+</div>

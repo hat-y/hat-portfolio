@@ -1,2 +1,66 @@
 <app-header></app-header>
+
+<!-- Overlay para ventanas maximizadas -->
+<div class="window-overlay"
+     *ngIf="showOverlay()"
+     [style.z-index]="500"
+     [style.pointer-events]="'none'">
+</div>
+
+<!-- Mostrar ventanas según estado open y minimized -->
+<app-terminal
+  [style.display]="isTabVisible('terminal') ? 'block' : 'none'"
+  [attr.data-maximized]="isTabMaximized('terminal')"
+  [class.active-border]="shouldShowActiveBorder('terminal')"
+  [windowTop]="getWindowPosition('terminal').top"
+  [windowLeft]="getWindowPosition('terminal').left"
+  [windowWidth]="getWindowPosition('terminal').width"
+  [windowHeight]="getWindowPosition('terminal').height"
+  [windowZIndex]="getZIndex('terminal')">
+</app-terminal>
+
+<app-about
+  [style.display]="isTabVisible('about') ? 'block' : 'none'"
+  [attr.data-maximized]="isTabMaximized('about')"
+  [class.active-border]="shouldShowActiveBorder('about')"
+  [windowTop]="getWindowPosition('about').top"
+  [windowLeft]="getWindowPosition('about').left"
+  [windowWidth]="getWindowPosition('about').width"
+  [windowHeight]="getWindowPosition('about').height"
+  [windowZIndex]="getZIndex('about')">
+</app-about>
+
+<app-file-manager
+  [style.display]="isTabVisible('file-manager') ? 'block' : 'none'"
+  [attr.data-maximized]="isTabMaximized('file-manager')"
+  [class.active-border]="shouldShowActiveBorder('file-manager')"
+  [windowTop]="getWindowPosition('file-manager').top"
+  [windowLeft]="getWindowPosition('file-manager').left"
+  [windowWidth]="getWindowPosition('file-manager').width"
+  [windowHeight]="getWindowPosition('file-manager').height"
+  [windowZIndex]="getZIndex('file-manager')">
+</app-file-manager>
+
+<app-projects
+  [style.display]="isTabVisible('projects') ? 'block' : 'none'"
+  [attr.data-maximized]="isTabMaximized('projects')"
+  [class.active-border]="shouldShowActiveBorder('projects')"
+  [windowTop]="getWindowPosition('projects').top"
+  [windowLeft]="getWindowPosition('projects').left"
+  [windowWidth]="getWindowPosition('projects').width"
+  [windowHeight]="getWindowPosition('projects').height"
+  [windowZIndex]="getZIndex('projects')">
+</app-projects>
+
+<app-contact
+  [style.display]="isTabVisible('contact') ? 'block' : 'none'"
+  [attr.data-maximized]="isTabMaximized('contact')"
+  [class.active-border]="shouldShowActiveBorder('contact')"
+  [windowTop]="getWindowPosition('contact').top"
+  [windowLeft]="getWindowPosition('contact').left"
+  [windowWidth]="getWindowPosition('contact').width"
+  [windowHeight]="getWindowPosition('contact').height"
+  [windowZIndex]="getZIndex('contact')">
+</app-contact>
+
 <router-outlet></router-outlet>

@@ -22,7 +22,7 @@
 
   <!-- Tabs/Ventanas abiertas -->
   <nav class="taskbar-tabs" role="tablist">
-    @for (tab of tabs(); track tab.id) {
+    @for (tab of openTabs(); track tab.id) {
       <button
         class="taskbar-tab"
         [class.is-active]="tab.active"
@@ -57,3 +57,55 @@
     </button>
   </div>
 </header>
+
+<!-- Start Menu -->
+@if (showStartMenu()) {
+  <div class="start-menu" role="menu">
+    <div class="start-menu-header">Applications</div>
+    <div class="start-menu-items">
+      @for (tab of tabs(); track tab.id) {
+        <button
+          class="start-menu-item"
+          [class.is-open]="tab.open"
+          (click)="selectTab(tab.id)"
+          type="button"
+          role="menuitem">
+          <svg class="menu-item-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+            <rect width="13" height="11" x="1.5" y="2.5" fill="none" stroke="currentColor" stroke-width="1"/>
+            <rect width="13" height="2" x="1.5" y="2.5" fill="currentColor"/>
+          </svg>
+          <span class="menu-item-title">{{ tab.title }}</span>
+          @if (tab.open) {
+            <span class="menu-item-status">●</span>
+          }
+        </button>
+      }
+    </div>
+  </div>
+}
+
+<!-- Start Menu -->
+@if (showStartMenu()) {
+  <div class="start-menu" role="menu">
+    <div class="start-menu-header">Applications</div>
+    <div class="start-menu-items">
+      @for (tab of tabs(); track tab.id) {
+        <button
+          class="start-menu-item"
+          [class.is-open]="tab.open"
+          (click)="selectTab(tab.id)"
+          type="button"
+          role="menuitem">
+          <svg class="menu-item-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+            <rect width="13" height="11" x="1.5" y="2.5" fill="none" stroke="currentColor" stroke-width="1"/>
+            <rect width="13" height="2" x="1.5" y="2.5" fill="currentColor"/>
+          </svg>
+          <span class="menu-item-title">{{ tab.title }}</span>
+          @if (tab.open) {
+            <span class="menu-item-status">●</span>
+          }
+        </button>
+      }
+    </div>
+  </div>
+}

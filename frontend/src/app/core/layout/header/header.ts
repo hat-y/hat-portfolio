@@ -1,11 +1,6 @@
-import { Component, signal, OnDestroy, WritableSignal } from '@angular/core';
+import { Component, signal, computed, OnDestroy, WritableSignal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-interface Tab {
-  id: string;
-  title: string;
-  active: boolean;
-}
+import { Navigation } from '../../services/navigation';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +9,9 @@ interface Tab {
   styleUrl: './header.css',
 })
 export class Header implements OnDestroy {
-  protected readonly currentTime = signal(
+  private readonly navigationService = inject(Navigation);
+
+  protected readonly currentTime: WritableSignal<string> = signal(
     new Date().toLocaleTimeString('en-US', {
       hour: '2-digit',
       minute: '2-digit',
@@ -22,13 +19,15 @@ export class Header implements OnDestroy {
     }),
   );
 
-  protected readonly tabs: WritableSignal<Tab[]> = signal<Tab[]>([
-    { id: 'portfolio', title: 'Portfolio', active: true },
-    { id: 'projects', title: 'Projects', active: false },
-    { id: 'contact', title: 'Contact', active: false },
-  ]);
+  // Los tabs ahora vienen del servicio
+  protected readonly tabs = this.navigationService.tabs;
 
-  protected showStartMenu = signal(false);
+  // Solo mostrar tabs abiertos en el header
+  protected readonly openTabs = computed(() => {
+    return this.tabs().filter((tab) => tab.open);
+  });
+
+  protected showStartMenu: WritableSignal<boolean> = signal(false);
 
   private clockInterval: any;
 
@@ -55,11 +54,13 @@ export class Header implements OnDestroy {
   }
 
   selectTab(tabId: string): void {
-    this.tabs.update((tabs) =>
-      tabs.map((tab) => ({
-        ...tab,
-        active: tab.id === tabId,
-      })),
-    );
+    const tab = this.tabs().find((t) => t.id === tabId);
+    if (tab?.open && !tab.minimized && tab.active) {
+      // Si está abierto, visible y activo, minimizar
+      this.navigationService.toggleMinimize(tabId);
+    } else {
+      // En cualquier otro caso (cerrado, minimizado, o no activo), activar/restaurar
+      this.navigationService.setActiveTab(tabId);
+    }
   }
 }

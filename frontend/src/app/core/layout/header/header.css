@@ -1,6 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
 
 /* ===== TASKBAR PRINCIPAL ===== */
+.taskbar,
+.taskbar *,
+.taskbar button,
+.taskbar span,
+.taskbar svg {
+  font-family:
+    Ubuntu,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 400;
+  font-style: normal;
+  font-variant: normal;
+  letter-spacing: 0;
+  word-spacing: 0;
+  text-transform: none;
+  font-stretch: normal;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .taskbar {
   position: fixed;
   top: 8px;
@@ -19,13 +46,6 @@
   padding: 4px;
   gap: 8px;
   z-index: 9999;
-  font-family:
-    Ubuntu,
-    -apple-system,
-    BlinkMacSystemFont,
-    Segoe UI,
-    sans-serif;
-  font-size: 11px;
 }
 
 /* ===== SECCIÓN START BUTTON ===== */
@@ -56,8 +76,7 @@
 }
 
 .taskbar .start-section .start-button:hover {
-  background: var(--tab-bg-sunken);
-  transform: translateY(-1px);
+  background: color-mix(in srgb, var(--bg-button) 90%, var(--tab-bg-sunken) 10%);
 }
 
 .taskbar .start-section .start-button:focus-visible {
@@ -68,7 +87,7 @@
 .taskbar .start-section .start-button:active,
 .taskbar .start-section .start-button.is-pressed {
   background: var(--tab-bg-sunken);
-  border-color: var(--color-border-final);
+  border-style: inset;
 }
 
 .start-icon {
@@ -113,40 +132,39 @@
   color: var(--text-main);
   border: 1px solid var(--color-border-final);
   border-radius: 0;
-  padding: 2px 14px;
+  padding: 2px 12px;
   height: 100%;
-  min-width: 110px;
-  width: 110px;
-  max-width: 110px;
-  flex: 0 0 90px;
+  min-width: 120px;
+  max-width: 200px;
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   cursor: pointer;
   user-select: none;
   white-space: nowrap;
   overflow: hidden;
-  transition: all 0.25s ease;
+  transition: background 0.15s ease;
+  box-sizing: border-box;
 }
 
 .taskbar .taskbar-tabs .taskbar-tab:hover:not(.is-active) {
-  background: var(--tab-bg-sunken);
-  transform: translateY(-1px);
+  background: color-mix(in srgb, var(--bg-button) 90%, var(--tab-bg-sunken) 10%);
 }
 
 .taskbar .taskbar-tabs .taskbar-tab:focus-visible {
-  outline: 2px solid var(--text-main);
-  outline-offset: 2px;
+  outline: 1px dotted var(--text-main);
+  outline-offset: -2px;
 }
 
 .taskbar .taskbar-tabs .taskbar-tab.is-active {
   background: var(--tab-bg-sunken);
-  border-color: var(--color-border-final);
-  font-weight: 500;
+  border-style: inset;
 }
 
 .taskbar .taskbar-tabs .taskbar-tab:active:not(.is-active) {
   background: var(--tab-bg-sunken);
+  border-style: inset;
 }
 
 .tab-icon {
@@ -214,3 +232,86 @@
   stroke: var(--text-main);
 }
 
+/* ===== START MENU ===== */
+.start-menu {
+  position: fixed;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-left: calc(-600px + 20px);
+  width: 220px;
+  background: var(--bg-button);
+  border: 1px solid var(--color-border-final);
+  border-radius: 0;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  z-index: 10000;
+  animation: slideDown 0.15s ease-out;
+}
+
+.start-menu-header {
+  background: var(--tab-bg-sunken);
+  color: var(--text-main);
+  padding: 8px 12px;
+  font-size: 11px;
+  font-weight: 500;
+  border-bottom: 1px solid var(--color-border-final);
+}
+
+.start-menu-items {
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.start-menu-item {
+  background: transparent;
+  color: var(--text-main);
+  border: 1px solid transparent;
+  border-radius: 0;
+  padding: 6px 10px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 11px;
+  transition: all 0.15s ease;
+  text-align: left;
+}
+
+.start-menu-item:hover {
+  background: var(--tab-bg-sunken);
+  border-color: var(--color-border-final);
+}
+
+.start-menu-item.is-open {
+  font-weight: 500;
+}
+
+.menu-item-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.menu-item-title {
+  flex: 1;
+}
+
+.menu-item-status {
+  font-size: 8px;
+  color: #7cbb00;
+  flex-shrink: 0;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
