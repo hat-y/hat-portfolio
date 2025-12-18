@@ -4,25 +4,56 @@
 @import 'xterm/css/xterm.css';
 
 :root {
+  /* Fondos */
   --bg-desktop: #3a333a; /* fondo general*/
   --bg-window: #d2cabd; /* fondo base */
+  --bg-content: #ffffff; /* fondo de contenido (antes #F5F5F5) */
+  --bg-elevated: #f8f8f8; /* fondos elevados */
+  
+  /* Bordes y sombras */
   --border-3d: #6c6c6c; /* sombra/borde  */
-  --accent-terminal: #88c090; /* acento terminal  */
-  --accent-pink: #ff3399; /* acento artístico 1 */
-  --accent-magenta: #990066; /* acento artístico 2 */
-  --text-main: #2d2d2d; /* texto de terminal / texto oscuro */
-  --accent-select: #7D929D; /* acento de selección - azul-gris profesional */
   --color-light-highlight: #ffffff; /* luz blanca */
+  --color-window-light: #f0ece8; /* luz suave para marcos de ventana */
   --color-dark-shadow: #6c6c6c; /* sombra gris oscuro */
   --color-medium-gray: #c0c0c0; /* gris neutro de la barra de tareas */
   --color-input-sunken: #aaaaaa; /* area del icono de input */
   --color-shadow-medium: #808080; /* sombra media */
-
+  --color-border-final: #000;
+  
+  /* Acentos */
+  --accent-terminal: #88c090; /* acento terminal  */
+  --accent-pink: #ff4466; /* acento artístico 1 (menos fuerte) */
+  --accent-magenta: #990066; /* acento artístico 2 */
+  --accent-select: #7D929D; /* acento de selección - azul-gris profesional */
+  --accent-selection: #ff5555;
+  
+  /* Textos - MEJORADO para mejor contraste WCAG AA/AAA */
+  --text-primary: #000000; /* texto principal - contraste 21:1 */
+  --text-secondary: #2d2d2d; /* texto secundario - contraste 12.6:1 (WCAG AAA) */
+  --text-muted: #5a5a5a; /* texto desenfatizado - contraste 7:1 (WCAG AA) */
+  --text-main: #1a1a1a; /* texto de terminal / texto oscuro */
+  
+  /* UI */
   --bg-taskbar: #d1cabc;
   --bg-button: #c6c6c6;
   --tab-bg-sunken: #b0b0b0;
-  --color-border-final: #000;
-  --accent-selection: #ff5555;
+  
+  /* Espaciado consistente */
+  --space-xs: 0.5rem;   /* 8px */
+  --space-sm: 1rem;     /* 16px */
+  --space-md: 1.5rem;   /* 24px */
+  --space-lg: 2rem;     /* 32px */
+  --space-xl: 3rem;     /* 48px */
+  --space-2xl: 4rem;    /* 64px */
+
+  /* Tipografía */
+  --font-size-xs: 0.75rem;   /* 12px */
+  --font-size-sm: 0.875rem;  /* 14px */
+  --font-size-base: 1rem;    /* 16px */
+  --font-size-lg: 1.125rem;  /* 18px */
+  --font-size-xl: 1.25rem;   /* 20px */
+  --font-size-2xl: 1.5rem;   /* 24px */
+  --font-size-3xl: 2rem;     /* 32px */
 }
 
 html,
@@ -37,7 +68,13 @@ body {
 }
 
 html {
-  font-size: 16px;
+  font-size: 16px; /* Base size mejor para legibilidad */
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 15px;
+  }
 }
 
 body {
@@ -58,48 +95,51 @@ app-contact {
   transition: all 0.3s ease;
 }
 
-/* Overlay for maximized windows */
-.window-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
-  animation: fadeInOverlay 0.3s ease-out;
-  pointer-events: none;
-}
-
-@keyframes fadeInOverlay {
-  from {
-    opacity: 0;
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  body {
+    background-size: cover;
+    background-position: center;
   }
-  to {
-    opacity: 1;
+  
+  .window-overlay {
+    backdrop-filter: blur(1px);
   }
 }
 
-
-/* Blur effect when a window is maximized */
-.window-overlay ~ app-terminal:not([data-maximized="true"]) .terminal-window,
-.window-overlay ~ app-about:not([data-maximized="true"]) .about-window,
-.window-overlay ~ app-file-manager:not([data-maximized="true"]) .file-manager-window,
-.window-overlay ~ app-projects:not([data-maximized="true"]) .projects-window,
-.window-overlay ~ app-contact:not([data-maximized="true"]) .contact-window {
-  opacity: 0.6;
-  filter: blur(3px) brightness(0.8);
-  transition: opacity 0.3s ease, filter 0.3s ease;
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
 }
 
-/* Active window border when no windows are maximized */
-app-terminal.active-border .terminal-window,
-app-about.active-border .about-window,
-app-file-manager.active-border .file-manager-window,
-app-projects.active-border .projects-window,
-app-contact.active-border .contact-window {
-  box-shadow: 0 0 0 3px var(--accent-select);
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Screen reader only content */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+*:focus-visible {
+  outline: 2px solid #7D929D;
+  outline-offset: 1px;
 }
 
 body button,
@@ -128,4 +168,22 @@ textarea {
     BlinkMacSystemFont,
     'Segoe UI',
     sans-serif;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+a:focus-visible {
+  outline: 2px solid #7D929D;
+  outline-offset: 1px;
+}
+
+/* Ocultar outline por defecto pero mantener foco-visible */
+button:focus,
+input:focus,
+select:focus,
+textarea:focus,
+a:focus {
+  outline: none;
 }
