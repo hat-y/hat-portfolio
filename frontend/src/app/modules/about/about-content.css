@@ -1,0 +1,224 @@
+/* About content styles - no window frame styles */
+
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.loading-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  color: var(--text-main);
+  font-size: 16px;
+}
+
+.about-content {
+  padding: 30px;
+  overflow-y: auto;
+  background: var(--bg-content);
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.profile-section {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 40px;
+  align-items: center;
+}
+
+.profile-avatar {
+  flex-shrink: 0;
+}
+
+.avatar-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--color-border-final);
+}
+
+.avatar-placeholder {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: var(--bg-button);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 60px;
+  border: 2px solid var(--color-border-final);
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.profile-name {
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  margin: 0 0 var(--space-xs) 0;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.profile-role {
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+  margin: 0 0 var(--space-sm) 0;
+  color: var(--text-secondary);
+  line-height: 1.3;
+}
+
+.profile-tagline {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.bio-section {
+  margin-bottom: var(--space-xl);
+}
+
+.bio-section h3 {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  margin: 0 0 var(--space-sm) 0;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.bio-section p {
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0 0 var(--space-sm) 0;
+}
+
+.stats-section {
+  display: flex;
+  gap: var(--space-xl);
+  padding: var(--space-lg) 0;
+  border-top: 1px solid var(--color-medium-gray);
+}
+
+.stat-item {
+  text-align: center;
+  flex: 1;
+}
+
+.stat-number {
+  display: block;
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-xs);
+  line-height: 1.2;
+}
+
+.stat-label {
+  display: block;
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.skills-highlight {
+  margin-bottom: var(--space-lg);
+}
+
+.skills-highlight h3 {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  margin: 0 0 var(--space-sm) 0;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.skills-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.skill-tag {
+  display: inline-block;
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--bg-button);
+  border: 1px solid var(--color-medium-gray);
+  border-radius: 4px;
+  font-size: var(--font-size-sm);
+  color: var(--text-main);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  min-height: 32px;
+  line-height: 1.4;
+}
+
+.skill-tag:hover {
+  background: var(--tab-bg-sunken);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.skill-tag:focus-visible {
+  outline: 2px solid #7D929D;
+  outline-offset: 2px;
+}
+
+.interests-section {
+  margin-bottom: 20px;
+}
+
+.interests-section h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  color: var(--text-primary);
+}
+
+.interests-section p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* About scrollbar styling */
+.about-content::-webkit-scrollbar {
+  width: 12px;
+}
+
+.about-content::-webkit-scrollbar-track {
+  background: var(--color-medium-gray);
+  border-radius: 3px;
+}
+
+.about-content::-webkit-scrollbar-thumb {
+  background: var(--color-medium-gray);
+  border-radius: 3px;
+}
+
+.about-content::-webkit-scrollbar-thumb:hover {
+  background: #6a7d85;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .profile-section {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .stats-section {
+    flex-direction: column;
+    gap: 20px;
+  }
+}

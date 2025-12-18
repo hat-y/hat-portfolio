@@ -1,0 +1,59 @@
+<main class="about-content">
+    @if (loading()) {
+      <div class="loading-state" role="status" aria-live="polite">
+        <p>Loading profile...</p>
+      </div>
+    } @else if (profile()) {
+      <header class="profile-section">
+        <div class="profile-avatar">
+          @if (profile()!.avatar) {
+            <img [src]="profile()!.avatar" [alt]="profile()!.name" class="avatar-image" />
+          } @else {
+            <div class="avatar-placeholder" role="img" aria-label="Default avatar">👤</div>
+          }
+        </div>
+        <div class="profile-info">
+          <h1 class="profile-name">{{ profile()!.name }}</h1>
+          <h2 class="profile-role">{{ profile()!.role }}</h2>
+          <p class="profile-tagline">{{ profile()!.tagline }}</p>
+        </div>
+      </header>
+
+      <section class="bio-section" aria-labelledby="bio-heading">
+        <h3 id="bio-heading">Acerca de mi</h3>
+        @for (paragraph of profile()!.bio; track paragraph) {
+          <p>{{ paragraph }}</p>
+        }
+      </section>
+
+      <section class="stats-section" aria-labelledby="stats-heading">
+        <h2 id="stats-heading" class="sr-only">Estadísticas</h2>
+        <div class="stat-item">
+          <span class="stat-number">{{ profile()!.stats.experience }}</span>
+          <span class="stat-label">Años de Experiencia</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">{{ profile()!.stats.projects }}</span>
+          <span class="stat-label">Proyectos</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">{{ profile()!.stats.technologies }}</span>
+          <span class="stat-label">Tecnologías</span>
+        </div>
+      </section>
+
+      <section class="skills-highlight" aria-labelledby="skills-heading">
+        <h3 id="skills-heading">Skills</h3>
+        <div class="skills-tags" role="list">
+          @for (skill of profile()!.coreSkills; track skill) {
+            <span class="skill-tag" role="listitem">{{ skill }}</span>
+          }
+        </div>
+      </section>
+
+      <section class="interests-section" aria-labelledby="interests-heading">
+        <h3 id="interests-heading">Intereses</h3>
+        <p>{{ profile()!.interests }}</p>
+      </section>
+    }
+</main>
