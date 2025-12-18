@@ -12,7 +12,7 @@
     BlinkMacSystemFont,
     'Segoe UI',
     sans-serif;
-  font-size: 12px;
+  font-size: 0.72rem; /* ~13px */
   line-height: 1;
   font-weight: 400;
   font-style: normal;
@@ -36,7 +36,7 @@
   max-width: 1200px;
   width: calc(100% - 32px);
   height: 24px;
-  background: color-mix(in srgb, var(--bg-taskbar) 85%, transparent);
+  background: var(--bg-taskbar);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid var(--color-border-final);
@@ -67,9 +67,9 @@
   flex: 0 0 auto;
   display: flex;
   align-items: center;
-  gap: 4px;
-  font-weight: 400;
-  font-size: 11px;
+  gap: 6px;
+  font-weight: 500;
+  font-size: 0.72rem; /* ~13px */
   cursor: pointer;
   user-select: none;
   transition: all 0.25s ease;
@@ -77,11 +77,12 @@
 
 .taskbar .start-section .start-button:hover {
   background: color-mix(in srgb, var(--bg-button) 90%, var(--tab-bg-sunken) 10%);
+  transform: translateY(-1px);
 }
 
 .taskbar .start-section .start-button:focus-visible {
-  outline: 2px solid var(--text-main);
-  outline-offset: 2px;
+  outline: 2px solid #7D929D;
+  outline-offset: 1px;
 }
 
 .taskbar .start-section .start-button:active,
@@ -97,9 +98,9 @@
 }
 
 .start-text {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0;
+  font-size: 0.72rem; /* ~13px */
+  font-weight: 600;
+  letter-spacing: 0.01em;
   color: var(--text-main);
 }
 
@@ -144,17 +145,18 @@
   user-select: none;
   white-space: nowrap;
   overflow: hidden;
-  transition: background 0.15s ease;
+  transition: all 0.15s ease;
   box-sizing: border-box;
 }
 
 .taskbar .taskbar-tabs .taskbar-tab:hover:not(.is-active) {
   background: color-mix(in srgb, var(--bg-button) 90%, var(--tab-bg-sunken) 10%);
+  transform: translateY(-1px);
 }
 
 .taskbar .taskbar-tabs .taskbar-tab:focus-visible {
-  outline: 1px dotted var(--text-main);
-  outline-offset: -2px;
+  outline: 2px solid #7D929D;
+  outline-offset: 1px;
 }
 
 .taskbar .taskbar-tabs .taskbar-tab.is-active {
@@ -218,8 +220,8 @@
 }
 
 .taskbar .systray .systray-icon:focus-visible {
-  outline: 2px solid var(--text-main);
-  outline-offset: 2px;
+  outline: 2px solid #7D929D;
+  outline-offset: 1px;
 }
 
 .taskbar .systray .systray-icon:active {
@@ -313,5 +315,69 @@
   to {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  .taskbar {
+    top: 4px;
+    width: calc(100% - 16px);
+    padding: 3px;
+    gap: 4px;
+  }
+  
+  .taskbar-tabs {
+    gap: 3px;
+  }
+  
+  .taskbar-tab {
+    min-width: 80px;
+    max-width: 120px;
+    padding: 2px 8px;
+  }
+  
+  .tab-title {
+    font-size: 0.65rem;
+  }
+  
+  .start-menu {
+    width: calc(100% - 32px);
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .taskbar {
+    height: 20px;
+    padding: 2px;
+  }
+  
+  .start-button {
+    padding: 2px 8px;
+  }
+  
+  .start-text {
+    display: none; /* Ocultar texto en móviles pequeños */
+  }
+  
+  .taskbar-tab {
+    min-width: 60px;
+    max-width: 100px;
+  }
+  
+  .tab-icon {
+    width: 10px;
+    height: 10px;
+  }
+  
+  .systray-icon {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .systray-icon svg {
+    width: 9px;
+    height: 9px;
   }
 }
