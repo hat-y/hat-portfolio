@@ -17,8 +17,8 @@ export type LayoutMode = 'grid' | 'main-horizontal' | 'main-vertical' | 'floatin
 })
 export class TilingService {
   private readonly _layoutMode: WritableSignal<LayoutMode> = signal<LayoutMode>('grid');
-  private readonly _windowGap = signal(15);
-  private readonly _margin = signal(20);
+  private readonly _windowGap = signal(24);
+  private readonly _margin = signal(40);
   private readonly _headerHeight = 40;
   private readonly _lockPositions = signal(false);
 
