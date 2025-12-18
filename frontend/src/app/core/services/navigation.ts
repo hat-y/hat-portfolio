@@ -30,18 +30,18 @@ export class Navigation {
   registerTab(tab: Omit<Tab, 'active' | 'minimized' | 'open' | 'maximized' | 'zIndex'>): void {
     this._tabs.update((tabs: Tab[]): Tab[] => {
       // Prevenir duplicados
-      if (tabs.some(t: tab => t.id === tab.id)) {
+      if (tabs.some((t: Tab): boolean => t.id === tab.id)) {
         return tabs;
       }
       const isFirstTab = tabs.length === 0;
-      const maxZIndex = tabs.length > 0 ? Math.max(...tabs.map(t => t.zIndex)) : 100;
+      const maxZIndex = tabs.length > 0 ? Math.max(...tabs.map((t) => t.zIndex)) : 100;
       const newTab = {
         ...tab,
         active: isFirstTab,
         minimized: false,
         open: isFirstTab,
         maximized: false,
-        zIndex: maxZIndex + 1
+        zIndex: maxZIndex + 1,
       };
 
       const updatedTabs = [...tabs, newTab];
@@ -52,7 +52,7 @@ export class Navigation {
   }
 
   private ensureActiveWindow(tabs: Tab[]): Tab[] {
-    const openTabs = tabs.filter(t => t.open && !t.minimized);
+    const openTabs = tabs.filter((t) => t.open && !t.minimized);
 
     // Si no hay ventanas abiertas y no minimizadas, no hacer nada
     if (openTabs.length === 0) {
@@ -60,15 +60,15 @@ export class Navigation {
     }
 
     // Si no hay ninguna ventana activa entre las abiertas, activar la primera
-    const hasActiveOpenTab = openTabs.some(t => t.active);
+    const hasActiveOpenTab = openTabs.some((t) => t.active);
     if (!hasActiveOpenTab) {
-      const maxZIndex = Math.max(...tabs.map(t => t.zIndex));
+      const maxZIndex = Math.max(...tabs.map((t) => t.zIndex));
       const firstOpenTabId = openTabs[0].id;
 
-      return tabs.map(tab => ({
+      return tabs.map((tab) => ({
         ...tab,
         active: tab.id === firstOpenTabId,
-        zIndex: tab.id === firstOpenTabId ? maxZIndex + 1 : tab.zIndex
+        zIndex: tab.id === firstOpenTabId ? maxZIndex + 1 : tab.zIndex,
       }));
     }
 
@@ -77,8 +77,8 @@ export class Navigation {
 
   setActiveTab(tabId: string): void {
     this._tabs.update((tabs: Tab[]) => {
-      const maxZIndex = Math.max(...tabs.map(t => t.zIndex));
-      const targetTab = tabs.find(t => t.id === tabId);
+      const maxZIndex = Math.max(...tabs.map((t) => t.zIndex));
+      const targetTab = tabs.find((t) => t.id === tabId);
       const isMaximized = targetTab?.maximized;
 
       return tabs.map((tab) => ({
@@ -98,7 +98,12 @@ export class Navigation {
       const updatedTabs = tabs.map(
         (tab: Tab): Tab =>
           tab.id === tabId
-            ? { ...tab, minimized: !tab.minimized, active: tab.minimized ? true : false, maximized: false }
+            ? {
+                ...tab,
+                minimized: !tab.minimized,
+                active: tab.minimized ? true : false,
+                maximized: false,
+              }
             : tab,
       );
 
@@ -111,7 +116,9 @@ export class Navigation {
     this._tabs.update((tabs: Tab[]): Tab[] => {
       const updatedTabs = tabs.map(
         (tab: Tab): Tab =>
-          tab.id === tabId ? { ...tab, open: false, minimized: true, active: false, maximized: false } : tab,
+          tab.id === tabId
+            ? { ...tab, open: false, minimized: true, active: false, maximized: false }
+            : tab,
       );
 
       // Asegurar que siempre haya una ventana activa después de cerrar
@@ -121,11 +128,18 @@ export class Navigation {
 
   openTab(tabId: string): void {
     this._tabs.update((tabs: Tab[]) => {
-      const maxZIndex = Math.max(...tabs.map(t => t.zIndex));
+      const maxZIndex = Math.max(...tabs.map((t) => t.zIndex));
       const updatedTabs = tabs.map((tab) =>
         tab.id === tabId
-          ? { ...tab, open: true, minimized: false, active: true, maximized: false, zIndex: maxZIndex + 1 }
-          : { ...tab, active: false }
+          ? {
+              ...tab,
+              open: true,
+              minimized: false,
+              active: true,
+              maximized: false,
+              zIndex: maxZIndex + 1,
+            }
+          : { ...tab, active: false },
       );
 
       // Asegurar que siempre haya una ventana activa (aunque openTab ya establece active: true)
@@ -137,7 +151,7 @@ export class Navigation {
     this._tabs.update((tabs: Tab[]) => {
       const targetTab = tabs.find((t) => t.id === tabId);
       const isMaximizing = !targetTab?.maximized;
-      const maxZIndex = Math.max(...tabs.map(t => t.zIndex));
+      const maxZIndex = Math.max(...tabs.map((t) => t.zIndex));
 
       return tabs.map((tab) => {
         if (tab.id === tabId) {
@@ -147,14 +161,14 @@ export class Navigation {
             minimized: false,
             active: true,
             maximized: isMaximizing,
-            zIndex: isMaximizing ? maxZIndex + 1 : tab.zIndex
+            zIndex: isMaximizing ? maxZIndex + 1 : tab.zIndex,
           };
         } else {
           // Las demás ventanas pierden el foco si se está maximizando otra
           return {
             ...tab,
             active: isMaximizing ? false : tab.active,
-            maximized: false // Solo puede haber una ventana maximizada a la vez
+            maximized: false, // Solo puede haber una ventana maximizada a la vez
           };
         }
       });
