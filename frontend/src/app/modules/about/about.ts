@@ -1,43 +1,31 @@
-import { Component, OnInit, Input, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Navigation } from '../../core/services/navigation';
+import { DataService, Profile } from '../../core/services/data.service';
 
 @Component({
   selector: 'app-about',
+  standalone: true,
   imports: [CommonModule],
-  templateUrl: './about.html',
-  styleUrl: './about.css',
+  templateUrl: './about-content.html',
+  styleUrl: './about-content.css',
 })
 export class About implements OnInit {
-  @Input() windowTop: string = '60px';
-  @Input() windowLeft: string = '440px';
-  @Input() windowWidth: string = '750px';
-  @Input() windowHeight: string = '500px';
-  @Input() windowZIndex: number = 100;
+  private readonly dataService = inject(DataService);
 
-  protected readonly navigationService = inject(Navigation);
-
-  protected get isMaximized(): boolean {
-    const tab = this.navigationService.tabs().find(t => t.id === 'about');
-    return tab?.maximized ?? false;
-  }
+  protected profile = signal<Profile | null>(null);
+  protected loading = signal<boolean>(true);
 
   ngOnInit(): void {
-    this.navigationService.registerTab({
-      id: 'about',
-      title: 'About Me',
+    // Cargar perfil desde JSON
+    this.dataService.getProfile().subscribe({
+      next: (data) => {
+        this.profile.set(data);
+        this.loading.set(false);
+      },
+      error: (err) => {
+        console.error('Error loading profile:', err);
+        this.loading.set(false);
+      }
     });
-  }
-
-  protected minimizeWindow(): void {
-    this.navigationService.toggleMinimize('about');
-  }
-
-  protected closeWindow(): void {
-    this.navigationService.closeTab('about');
-  }
-
-  protected maximizeWindow(): void {
-    this.navigationService.maximizeTab('about');
   }
 }
