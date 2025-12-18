@@ -1,44 +1,39 @@
-import { Component, OnInit, Input, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Navigation } from '../../core/services/navigation';
+import { DataService, Profile } from '../../core/services/data.service';
 
 @Component({
   selector: 'app-contact',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './contact.html',
   styleUrl: './contact.css',
 })
 export class Contact implements OnInit {
-  @Input() windowTop: string = '300px';
-  @Input() windowLeft: string = '640px';
-  @Input() windowWidth: string = '750px';
-  @Input() windowHeight: string = '500px';
-  @Input() windowZIndex: number = 100;
-
   protected readonly navigationService = inject(Navigation);
-
-  protected get isMaximized(): boolean {
-    const tab = this.navigationService.tabs().find(t => t.id === 'contact');
-    return tab?.maximized ?? false;
-  }
+  private readonly dataService = inject(DataService);
+  
+  protected profile = signal<Profile | null>(null);
+  protected loading = signal<boolean>(true);
 
   ngOnInit(): void {
     this.navigationService.registerTab({
       id: 'contact',
       title: 'Contact',
     });
-  }
-
-  protected minimizeWindow(): void {
-    this.navigationService.toggleMinimize('contact');
-  }
-
-  protected closeWindow(): void {
-    this.navigationService.closeTab('contact');
-  }
-
-  protected maximizeWindow(): void {
-    this.navigationService.maximizeTab('contact');
+    
+    // Cargar datos de contacto desde JSON
+    this.dataService.getProfile().subscribe({
+      next: (data) => {
+        this.profile.set(data);
+        this.loading.set(false);
+      },
+      error: (err) => {
+        console.error('Error loading contact data:', err);
+        this.loading.set(false);
+      }
+    });
   }
 
   protected downloadCV(): void {

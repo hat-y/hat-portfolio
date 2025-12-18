@@ -1,43 +1,50 @@
-<div class="contact-window" [class.is-maximized]="isMaximized" [ngStyle]="{'top': windowTop, 'left': windowLeft, 'width': windowWidth, 'height': windowHeight, 'z-index': windowZIndex}" (click)="navigationService.setActiveTab('contact')">
-  <div class="contact-header">
-    <div class="title-bar">
-      <span class="window-title">📧 Contact & CV</span>
-      <div class="window-controls">
-        <button class="minimize-btn" (click)="minimizeWindow(); $event.stopPropagation()" title="Minimize">_</button>
-        <button class="maximize-btn" (click)="maximizeWindow(); $event.stopPropagation()" title="Maximize">□</button>
-        <button class="close-btn" (click)="closeWindow(); $event.stopPropagation()" title="Close">×</button>
+<main class="contact-content">
+    @if (loading()) {
+      <div class="loading-state" role="status" aria-live="polite">
+        <p>Loading contact info...</p>
       </div>
-    </div>
-  </div>
-  
-  <div class="contact-content">
-    <h2>Let's Connect!</h2>
-    
-    <div class="contact-methods">
-      <a href="mailto:tu.email@example.com" class="contact-item">
-        <span class="contact-icon">📧</span>
-        <span class="contact-label">Email</span>
-        <span class="contact-value">tu.email&#64;example.com</span>
-      </a>
-      
-      <a href="https://linkedin.com/in/tu-perfil" target="_blank" class="contact-item">
-        <span class="contact-icon">💼</span>
-        <span class="contact-label">LinkedIn</span>
-        <span class="contact-value">linkedin.com/in/tu-perfil</span>
-      </a>
-      
-      <a href="https://github.com/tu-usuario" target="_blank" class="contact-item">
-        <span class="contact-icon">💻</span>
-        <span class="contact-label">GitHub</span>
-        <span class="contact-value">github.com/tu-usuario</span>
-      </a>
-    </div>
+    } @else if (profile()) {
+      <header>
+        <h2>Let's Connect!</h2>
+      </header>
 
-    <div class="cv-section">
-      <button class="download-cv-btn" (click)="downloadCV()">
-        <span>📄</span>
-        <span>Download CV</span>
-      </button>
-    </div>
-  </div>
-</div>
+      <section class="contact-methods" aria-label="Contact information">
+        <a [href]="'mailto:' + profile()!.contact.email"
+           class="contact-item"
+           aria-label="Send email to {{ profile()!.contact.email }}">
+          <span class="contact-icon" aria-hidden="true">📧</span>
+          <span class="contact-label">EMAIL</span>
+          <span class="contact-value">{{ profile()!.contact.email }}</span>
+        </a>
+
+        <a [href]="profile()!.contact.linkedin"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="contact-item"
+           aria-label="Visit LinkedIn profile">
+          <span class="contact-icon" aria-hidden="true">💼</span>
+          <span class="contact-label">LINKEDIN</span>
+          <span class="contact-value">{{ profile()!.contact.linkedin.replace('https://', '') }}</span>
+        </a>
+
+        <a [href]="profile()!.contact.github"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="contact-item"
+           aria-label="Visit GitHub profile">
+          <span class="contact-icon" aria-hidden="true">💻</span>
+          <span class="contact-label">GITHUB</span>
+          <span class="contact-value">{{ profile()!.contact.github.replace('https://', '') }}</span>
+        </a>
+      </section>
+
+      <footer class="cv-section">
+        <button class="download-cv-btn"
+                (click)="downloadCV()"
+                aria-label="Download curriculum vitae">
+          <span aria-hidden="true">📄</span>
+          <span>Download CV</span>
+        </button>
+      </footer>
+    }
+</main>
