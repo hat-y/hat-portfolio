@@ -1,20 +1,7 @@
-<div class="terminal-window"
-     [class.is-maximized]="isMaximized"
-     [style.top]="!isMaximized ? windowTop : ''"
-     [style.left]="!isMaximized ? windowLeft : ''"
-     [style.width]="!isMaximized ? windowWidth : ''"
-     [style.height]="!isMaximized ? windowHeight : ''"
-     [style.z-index]="windowZIndex"
-     (click)="navigationService.setActiveTab('terminal')">
-  <div class="terminal-header">
-    <span class="terminal-title">Terminal - hat ~</span>
-    <div class="terminal-controls">
-      <button class="minimize-btn" (click)="minimizeWindow(); $event.stopPropagation()" title="Minimize">_</button>
-      <button class="maximize-btn" (click)="maximizeWindow(); $event.stopPropagation()" title="Maximize">□</button>
-      <button class="close-btn" (click)="closeWindow(); $event.stopPropagation()" title="Close">×</button>
-    </div>
-  </div>
-  <div class="terminal-content">
-    <div #terminalContainer></div>
-  </div>
+<div
+  class="terminal-content"
+  role="main"
+  aria-label="Terminal output and input"
+  tabindex="0">
+  <div #terminalContainer role="log" aria-live="polite" aria-label="Terminal output"></div>
 </div>

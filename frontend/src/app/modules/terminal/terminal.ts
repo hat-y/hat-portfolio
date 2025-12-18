@@ -5,7 +5,6 @@ import {
   AfterViewInit,
   ElementRef,
   ViewChild,
-  Input,
   inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -16,6 +15,7 @@ import { FitAddon } from '@xterm/addon-fit';
 
 @Component({
   selector: 'app-terminal',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './terminal.html',
   styleUrl: './terminal.css',
@@ -24,23 +24,12 @@ export class Terminal implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('terminalContainer', { static: false })
   terminalContainer!: ElementRef;
 
-  @Input() windowTop: string = '60px';
-  @Input() windowLeft: string = '40px';
-  @Input() windowWidth: string = '750px';
-  @Input() windowHeight: string = '500px';
-  @Input() windowZIndex: number = 100;
-
   protected readonly navigationService = inject(Navigation);
   private readonly commandsService = inject(TerminalCommandsService);
 
   private xterm!: XTerm;
   private fitAddon!: FitAddon;
   private currentLine = '';
-
-  protected get isMaximized(): boolean {
-    const tab = this.navigationService.tabs().find(t => t.id === 'terminal');
-    return tab?.maximized ?? false;
-  }
   private commandHistory: string[] = [];
   private historyIndex = -1;
   private readonly prompt = '\x1b[92mlizzy@portfolio\x1b[0m:\x1b[96m~\x1b[0m$ ';
@@ -230,18 +219,6 @@ export class Terminal implements OnInit, AfterViewInit, OnDestroy {
     } else {
       this.xterm.write(this.prompt);
     }
-  }
-
-  protected minimizeWindow(): void {
-    this.navigationService.toggleMinimize('terminal');
-  }
-
-  protected closeWindow(): void {
-    this.navigationService.closeTab('terminal');
-  }
-
-  protected maximizeWindow(): void {
-    this.navigationService.maximizeTab('terminal');
   }
 
   private showNeofetch(): void {
