@@ -1,0 +1,46 @@
+<div class="window-component"
+     [attr.aria-label]="getAriaLabel()"
+     role="dialog"
+     tabindex="0"
+     (click)="onFocus()">
+
+  <!-- Window Header -->
+  <div class="window-header">
+    <div class="title-bar">
+      <div class="window-title">
+        <span>{{ title }}</span>
+      </div>
+
+      <div class="window-controls">
+        <button *ngIf="canMinimize"
+                class="minimize-btn"
+                (click)="onMinimize(); $event.stopPropagation()"
+                aria-label="Minimize window"
+                title="Minimize">
+          <span>−</span>
+        </button>
+
+        <button *ngIf="canMaximize"
+                class="maximize-btn"
+                (click)="onMaximize(); $event.stopPropagation()"
+                aria-label="Maximize window"
+                title="Maximize">
+          <span>{{ maximized ? '□' : '▢' }}</span>
+        </button>
+
+        <button *ngIf="canClose"
+                class="close-btn"
+                (click)="onClose(); $event.stopPropagation()"
+                aria-label="Close window"
+                title="Close">
+          <span>×</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Window Content -->
+  <div class="window-content">
+    <ng-content></ng-content>
+  </div>
+</div>
