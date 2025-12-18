@@ -30,7 +30,7 @@ export class Navigation {
   registerTab(tab: Omit<Tab, 'active' | 'minimized' | 'open' | 'maximized' | 'zIndex'>): void {
     this._tabs.update((tabs: Tab[]): Tab[] => {
       // Prevenir duplicados
-      if (tabs.some(t => t.id === tab.id)) {
+      if (tabs.some(t: tab => t.id === tab.id)) {
         return tabs;
       }
       const isFirstTab = tabs.length === 0;
