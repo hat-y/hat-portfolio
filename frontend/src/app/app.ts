@@ -5,8 +5,9 @@ import { CommonModule } from '@angular/common';
 
 // internals modules
 import { Header } from './core/layout/header/header';
+import { WindowComponent } from './core/components/window/window';
 import { Terminal } from './modules/terminal/terminal';
-import { FileManager } from './modules/file-manager/file-manager';
+import { Skills } from './modules/skills/skills';
 import { About } from './modules/about/about';
 import { Projects } from './modules/projects/projects';
 import { Contact } from './modules/contact/contact';
@@ -16,14 +17,14 @@ import { KeyboardService } from './core/services/keyboard.service';
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, RouterOutlet, Header, Terminal, FileManager, About, Projects, Contact],
+  imports: [CommonModule, RouterOutlet, Header, WindowComponent, Terminal, Skills, About, Projects, Contact],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
 export class App {
   protected readonly title = signal('frontend');
 
-  private readonly navigationService = inject(Navigation);
+  protected readonly navigationService = inject(Navigation);
   private readonly tilingService = inject(TilingService);
   private readonly keyboardService = inject(KeyboardService);
 
@@ -46,6 +47,9 @@ export class App {
   });
 
   constructor() {
+    // Registrar todas las ventanas disponibles
+    this.registerAllWindows();
+
     // Setup automatic window positioning when tabs change
     effect(() => {
       const tabs = this.tabs();
@@ -67,6 +71,31 @@ export class App {
 
     // Setup keyboard shortcuts
     this.setupKeyboardNotifications();
+  }
+
+  private registerAllWindows(): void {
+    this.navigationService.registerTab({
+      id: 'about',
+      title: 'About Me',
+    });
+
+    // Aquí se registrarán las demás ventanas cuando se migren
+    // this.navigationService.registerTab({
+    //   id: 'terminal',
+    //   title: 'Terminal',
+    // });
+    // this.navigationService.registerTab({
+    //   id: 'file-manager',
+    //   title: 'File Manager',
+    // });
+    // this.navigationService.registerTab({
+    //   id: 'projects',
+    //   title: 'Projects',
+    // });
+    // this.navigationService.registerTab({
+    //   id: 'contact',
+    //   title: 'Contact',
+    // });
   }
 
   protected isTabVisible(tabId: string): boolean {
