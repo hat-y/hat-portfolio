@@ -8,59 +8,92 @@
 </div>
 
 <!-- Mostrar ventanas según estado open y minimized -->
-<app-terminal
-  [style.display]="isTabVisible('terminal') ? 'block' : 'none'"
-  [attr.data-maximized]="isTabMaximized('terminal')"
-  [class.active-border]="shouldShowActiveBorder('terminal')"
+<app-window
+  windowId="terminal"
+  title="Terminal - hat ~"
   [windowTop]="getWindowPosition('terminal').top"
   [windowLeft]="getWindowPosition('terminal').left"
   [windowWidth]="getWindowPosition('terminal').width"
   [windowHeight]="getWindowPosition('terminal').height"
-  [windowZIndex]="getZIndex('terminal')">
-</app-terminal>
+  [windowZIndex]="getZIndex('terminal')"
+  [maximized]="isTabMaximized('terminal')"
+  [visible]="isTabVisible('terminal')"
+  (minimize)="navigationService.toggleMinimize('terminal')"
+  (maximize)="navigationService.maximizeTab('terminal')"
+  (close)="navigationService.closeTab('terminal')"
+  (focus)="navigationService.setActiveTab('terminal')">
+  <app-terminal></app-terminal>
+</app-window>
 
-<app-about
-  [style.display]="isTabVisible('about') ? 'block' : 'none'"
-  [attr.data-maximized]="isTabMaximized('about')"
-  [class.active-border]="shouldShowActiveBorder('about')"
+<!-- Ejemplo usando el nuevo WindowComponent para About -->
+<app-window
+  windowId="about"
+  title="About Me"
   [windowTop]="getWindowPosition('about').top"
   [windowLeft]="getWindowPosition('about').left"
   [windowWidth]="getWindowPosition('about').width"
   [windowHeight]="getWindowPosition('about').height"
-  [windowZIndex]="getZIndex('about')">
-</app-about>
+  [windowZIndex]="getZIndex('about')"
+  [maximized]="isTabMaximized('about')"
+  [visible]="isTabVisible('about')"
+  (minimize)="navigationService.toggleMinimize('about')"
+  (maximize)="navigationService.maximizeTab('about')"
+  (close)="navigationService.closeTab('about')"
+  (focus)="navigationService.setActiveTab('about')">
 
-<app-file-manager
-  [style.display]="isTabVisible('file-manager') ? 'block' : 'none'"
-  [attr.data-maximized]="isTabMaximized('file-manager')"
-  [class.active-border]="shouldShowActiveBorder('file-manager')"
-  [windowTop]="getWindowPosition('file-manager').top"
-  [windowLeft]="getWindowPosition('file-manager').left"
-  [windowWidth]="getWindowPosition('file-manager').width"
-  [windowHeight]="getWindowPosition('file-manager').height"
-  [windowZIndex]="getZIndex('file-manager')">
-</app-file-manager>
+  <!-- Contenido específico de About -->
+  <app-about></app-about>
+</app-window>
 
-<app-projects
-  [style.display]="isTabVisible('projects') ? 'block' : 'none'"
-  [attr.data-maximized]="isTabMaximized('projects')"
-  [class.active-border]="shouldShowActiveBorder('projects')"
+<app-window
+  windowId="skills"
+  title="🚀 Skills"
+  [windowTop]="getWindowPosition('skills').top"
+  [windowLeft]="getWindowPosition('skills').left"
+  [windowWidth]="getWindowPosition('skills').width"
+  [windowHeight]="getWindowPosition('skills').height"
+  [windowZIndex]="getZIndex('skills')"
+  [maximized]="isTabMaximized('skills')"
+  [visible]="isTabVisible('skills')"
+  (minimize)="navigationService.toggleMinimize('skills')"
+  (maximize)="navigationService.maximizeTab('skills')"
+  (close)="navigationService.closeTab('skills')"
+  (focus)="navigationService.setActiveTab('skills')">
+  <app-skills></app-skills>
+</app-window>
+
+<app-window
+  windowId="projects"
+  title="📁 Projects"
   [windowTop]="getWindowPosition('projects').top"
   [windowLeft]="getWindowPosition('projects').left"
   [windowWidth]="getWindowPosition('projects').width"
   [windowHeight]="getWindowPosition('projects').height"
-  [windowZIndex]="getZIndex('projects')">
-</app-projects>
+  [windowZIndex]="getZIndex('projects')"
+  [maximized]="isTabMaximized('projects')"
+  [visible]="isTabVisible('projects')"
+  (minimize)="navigationService.toggleMinimize('projects')"
+  (maximize)="navigationService.maximizeTab('projects')"
+  (close)="navigationService.closeTab('projects')"
+  (focus)="navigationService.setActiveTab('projects')">
+  <app-projects></app-projects>
+</app-window>
 
-<app-contact
-  [style.display]="isTabVisible('contact') ? 'block' : 'none'"
-  [attr.data-maximized]="isTabMaximized('contact')"
-  [class.active-border]="shouldShowActiveBorder('contact')"
+<app-window
+  windowId="contact"
+  title="✉️ Contact"
   [windowTop]="getWindowPosition('contact').top"
   [windowLeft]="getWindowPosition('contact').left"
   [windowWidth]="getWindowPosition('contact').width"
   [windowHeight]="getWindowPosition('contact').height"
-  [windowZIndex]="getZIndex('contact')">
-</app-contact>
+  [windowZIndex]="getZIndex('contact')"
+  [maximized]="isTabMaximized('contact')"
+  [visible]="isTabVisible('contact')"
+  (minimize)="navigationService.toggleMinimize('contact')"
+  (maximize)="navigationService.maximizeTab('contact')"
+  (close)="navigationService.closeTab('contact')"
+  (focus)="navigationService.setActiveTab('contact')">
+  <app-contact></app-contact>
+</app-window>
 
 <router-outlet></router-outlet>
