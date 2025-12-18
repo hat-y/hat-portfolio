@@ -1,33 +1,33 @@
-<div class="projects-window" [class.is-maximized]="isMaximized" [ngStyle]="{'top': windowTop, 'left': windowLeft, 'width': windowWidth, 'height': windowHeight, 'z-index': windowZIndex}" (click)="navigationService.setActiveTab('projects')">
-  <div class="projects-header">
-    <div class="title-bar">
-      <span class="window-title">📁 Projects</span>
-      <div class="window-controls">
-        <button class="minimize-btn" (click)="minimizeWindow(); $event.stopPropagation()" title="Minimize">_</button>
-        <button class="maximize-btn" (click)="maximizeWindow(); $event.stopPropagation()" title="Maximize">□</button>
-        <button class="close-btn" (click)="closeWindow(); $event.stopPropagation()" title="Close">×</button>
+<div class="projects-content">
+    @if (loading()) {
+      <div class="loading-state">
+        <p>Loading projects...</p>
       </div>
-    </div>
-  </div>
-  
-  <div class="projects-content">
-    <div class="projects-grid">
-      @for (project of projects; track project.name) {
-        <div class="project-card">
-          <div class="project-icon">💼</div>
-          <h3 class="project-name">{{ project.name }}</h3>
-          <p class="project-description">{{ project.description }}</p>
-          <div class="project-tech">
-            @for (tech of project.tech; track tech) {
-              <span class="tech-tag">{{ tech }}</span>
+    } @else if (projects().length === 0) {
+      <div class="empty-state">
+        <p>No projects available</p>
+      </div>
+    } @else {
+      <div class="projects-grid">
+        @for (project of projects(); track project.id) {
+          <div class="project-card" [class.featured]="project.featured">
+            @if (project.featured) {
+              <span class="badge">⭐ Featured</span>
             }
+            <div class="project-icon">💼</div>
+            <h3 class="project-name">{{ project.name }}</h3>
+            <p class="project-description">{{ project.description }}</p>
+            <div class="project-tech">
+              @for (tech of project.tech; track tech) {
+                <span class="tech-tag">{{ tech }}</span>
+              }
+            </div>
+            <div class="project-links">
+              <a [href]="project.github" target="_blank" rel="noopener noreferrer" class="project-link">GitHub</a>
+              <a [href]="project.demo" target="_blank" rel="noopener noreferrer" class="project-link">Demo</a>
+            </div>
           </div>
-          <div class="project-links">
-            <a [href]="project.github" target="_blank" class="project-link">GitHub</a>
-            <a [href]="project.demo" target="_blank" class="project-link">Demo</a>
-          </div>
-        </div>
-      }
-    </div>
-  </div>
+        }
+      </div>
+    }
 </div>
