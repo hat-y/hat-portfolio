@@ -1,0 +1,42 @@
+[
+  {
+    "id": "project-1",
+    "name": "E-Commerce Platform",
+    "description": "Full-stack e-commerce platform built with Angular and Node.js. Features include real-time inventory management, payment processing, and admin dashboard.",
+    "tech": ["Angular", "TypeScript", "Node.js", "MongoDB", "Express"],
+    "github": "https://github.com/yourusername/ecommerce-platform",
+    "demo": "https://ecommerce-demo.example.com",
+    "featured": true,
+    "image": "assets/images/projects/ecommerce.png"
+  },
+  {
+    "id": "project-2",
+    "name": "Task Management App",
+    "description": "Collaborative task management application with real-time updates. Built with React and Firebase for seamless team coordination.",
+    "tech": ["React", "Next.js", "TailwindCSS", "Firebase", "TypeScript"],
+    "github": "https://github.com/yourusername/task-manager",
+    "demo": "https://tasks-demo.example.com",
+    "featured": false,
+    "image": "assets/images/projects/tasks.png"
+  },
+  {
+    "id": "project-3",
+    "name": "Weather Dashboard",
+    "description": "Beautiful weather dashboard with forecasts, maps, and alerts. Integrates multiple weather APIs for accurate data.",
+    "tech": ["Vue.js", "TypeScript", "Chart.js", "OpenWeather API"],
+    "github": "https://github.com/yourusername/weather-dashboard",
+    "demo": "https://weather-demo.example.com",
+    "featured": false,
+    "image": "assets/images/projects/weather.png"
+  },
+  {
+    "id": "project-4",
+    "name": "REST API Generator",
+    "description": "CLI tool to generate RESTful APIs with authentication, validation, and documentation. Speeds up backend development.",
+    "tech": ["Node.js", "Express", "Swagger", "JWT", "PostgreSQL"],
+    "github": "https://github.com/yourusername/api-generator",
+    "demo": "https://api-generator-docs.example.com",
+    "featured": false,
+    "image": "assets/images/projects/api.png"
+  }
+]

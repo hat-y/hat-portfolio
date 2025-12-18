@@ -1,0 +1,32 @@
+{
+  "name": "Facundo Gabriel Gayoso",
+  "role": "Backend Developer Jr.",
+  "tagline": "Diseñando y construyendo APIs limpias y mantenibles",
+  "avatar": "assets/images/profile.jpg",
+  "bio": [
+    "Backend developer junior enfocado en construir APIs claras, seguras y fáciles de mantener. Me gusta trabajar con buenas prácticas, testing y documentación para que el código sea entendible para todo el equipo.",
+    "Actualmente estoy profundizando en Node.js y TypeScript para el backend, y uso Angular en el frontend como herramienta para mostrar y consumir mis servicios. Me interesa especialmente el diseño de arquitectura backend, bases de datos relacionales y la observabilidad de los sistemas."
+  ],
+  "stats": {
+    "experience": "1+",
+    "projects": "5+",
+    "technologies": "10+"
+  },
+  "coreSkills": [
+    "Node.js",
+    "TypeScript",
+    "Angular (frontend para consumir APIs)",
+    "PostgreSQL",
+    "REST APIs",
+    "Git",
+    "Docker (básico)",
+    "Linux"
+  ],
+  "interests": "Me interesa el diseño de APIs REST, la arquitectura backend orientada a dominios, el logging/monitorización de servicios y la automatización con scripts en Linux. Fuera del código, disfruto aprender sobre sistemas operativos, herramientas de terminal y buenas prácticas de ingeniería de software.",
+  "contact": {
+    "email": "facundo.gayoso02@gmail.com",
+    "linkedin": "www.linkedin.com/in/facundo-gayoso",
+    "github": "https://github.com/tu-usuario",
+    "location": "Formosa, Argentina"
+  }
+}

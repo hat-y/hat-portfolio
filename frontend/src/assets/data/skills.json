@@ -1,0 +1,150 @@
+[
+  {
+    "folder": "languages",
+    "name": "Languages",
+    "icon": "💻",
+    "skills": [
+      {
+        "name": "TypeScript",
+        "rating": 5,
+        "description": "Advanced type system mastery, generics, decorators, and compiler configuration"
+      },
+      {
+        "name": "JavaScript",
+        "rating": 5,
+        "description": "ES6+, async/await, closures, prototypes, and modern patterns"
+      },
+      {
+        "name": "Python",
+        "rating": 4,
+        "description": "Backend development, scripting, data processing, and automation"
+      },
+      {
+        "name": "Java",
+        "rating": 4,
+        "description": "Spring Boot, microservices architecture, and enterprise applications"
+      },
+      {
+        "name": "SQL",
+        "rating": 5,
+        "description": "Complex queries, optimization, indexing, and database design"
+      },
+      {
+        "name": "Go",
+        "rating": 3,
+        "description": "Concurrent programming, microservices, and API development"
+      }
+    ]
+  },
+  {
+    "folder": "frameworks",
+    "name": "Frameworks & Libraries",
+    "icon": "📦",
+    "skills": [
+      {
+        "name": "Angular",
+        "rating": 5,
+        "description": "Standalone components, signals, RxJS, state management, and performance optimization"
+      },
+      {
+        "name": "React",
+        "rating": 4,
+        "description": "Hooks, context, custom hooks, and modern patterns"
+      },
+      {
+        "name": "Node.js",
+        "rating": 5,
+        "description": "Express, NestJS, RESTful APIs, GraphQL, and microservices"
+      },
+      {
+        "name": "Next.js",
+        "rating": 4,
+        "description": "SSR, SSG, API routes, and App Router"
+      },
+      {
+        "name": "Spring Boot",
+        "rating": 4,
+        "description": "RESTful services, JPA, security, and cloud deployment"
+      },
+      {
+        "name": "Vue.js",
+        "rating": 3,
+        "description": "Composition API, Vuex, and component architecture"
+      }
+    ]
+  },
+  {
+    "folder": "tools",
+    "name": "Tools & DevOps",
+    "icon": "🔧",
+    "skills": [
+      {
+        "name": "Git & GitHub",
+        "rating": 5,
+        "description": "Advanced workflows, branching strategies, and CI/CD integration"
+      },
+      {
+        "name": "Docker",
+        "rating": 4,
+        "description": "Containerization, Docker Compose, and multi-stage builds"
+      },
+      {
+        "name": "Kubernetes",
+        "rating": 3,
+        "description": "Container orchestration, deployments, and services"
+      },
+      {
+        "name": "Jenkins",
+        "rating": 4,
+        "description": "CI/CD pipelines, automated testing, and deployment automation"
+      },
+      {
+        "name": "Webpack/Vite",
+        "rating": 4,
+        "description": "Build optimization, code splitting, and module bundling"
+      },
+      {
+        "name": "Jest/Vitest",
+        "rating": 4,
+        "description": "Unit testing, integration testing, and test-driven development"
+      }
+    ]
+  },
+  {
+    "folder": "cloud",
+    "name": "Cloud & Infrastructure",
+    "icon": "☁️",
+    "skills": [
+      {
+        "name": "AWS",
+        "rating": 4,
+        "description": "EC2, S3, Lambda, RDS, CloudFormation, and serverless architecture"
+      },
+      {
+        "name": "Google Cloud",
+        "rating": 3,
+        "description": "Compute Engine, Cloud Functions, and Cloud Storage"
+      },
+      {
+        "name": "Azure",
+        "rating": 3,
+        "description": "App Services, Functions, and Azure DevOps"
+      },
+      {
+        "name": "Vercel",
+        "rating": 4,
+        "description": "Frontend deployment, edge functions, and analytics"
+      },
+      {
+        "name": "Nginx",
+        "rating": 4,
+        "description": "Reverse proxy, load balancing, and server configuration"
+      },
+      {
+        "name": "MongoDB Atlas",
+        "rating": 4,
+        "description": "Cloud database management, scaling, and optimization"
+      }
+    ]
+  }
+]
