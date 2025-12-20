@@ -17,6 +17,7 @@ export interface Skill {
   name: string;
   rating: number;
   description: string;
+  isTopSkill?: boolean;
 }
 
 export interface SkillCategory {

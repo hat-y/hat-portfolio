@@ -1,0 +1,20 @@
+.card {
+  background-color: var(--bg-content);
+  border: 1px solid var(--retro-border-dark);
+  padding: var(--space-4); /* 16px */
+  box-shadow: 2px 2px 0px 0px var(--retro-border-black);
+  margin-bottom: var(--space-4);
+}
+
+.card-title {
+  font-size: var(--font-size-lg); /* 18px */
+  margin-top: 0;
+  margin-bottom: var(--space-3); /* 12px */
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.card-body {
+  font-size: var(--font-size-base);
+  color: var(--text-secondary);
+}

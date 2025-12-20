@@ -1,39 +1,51 @@
 <div class="window-component"
      [attr.aria-label]="getAriaLabel()"
      role="dialog"
-     tabindex="0"
-     (click)="onFocus()">
+     [attr.aria-modal]="maximized"
+     tabindex="-1"
+     (click)="onFocus()"
+     [class.active-window]="isActive()">
 
   <!-- Window Header -->
   <div class="window-header">
     <div class="title-bar">
+      <span *ngIf="icon" class="window-icon" aria-hidden="true">{{ icon }}</span>
       <div class="window-title">
         <span>{{ title }}</span>
       </div>
 
       <div class="window-controls">
         <button *ngIf="canMinimize"
-                class="minimize-btn"
+                class="btn-retro minimize-btn"
                 (click)="onMinimize(); $event.stopPropagation()"
+                (keydown.enter)="onMinimize(); $event.stopPropagation()"
+                (keydown.space)="onMinimize(); $event.stopPropagation()"
                 aria-label="Minimize window"
-                title="Minimize">
-          <span>−</span>
+                title="Minimize"
+                type="button">
+          <span aria-hidden="true">−</span>
         </button>
 
         <button *ngIf="canMaximize"
-                class="maximize-btn"
+                class="btn-retro maximize-btn"
                 (click)="onMaximize(); $event.stopPropagation()"
-                aria-label="Maximize window"
-                title="Maximize">
-          <span>{{ maximized ? '□' : '▢' }}</span>
+                (keydown.enter)="onMaximize(); $event.stopPropagation()"
+                (keydown.space)="onMaximize(); $event.stopPropagation()"
+                [attr.aria-label]="maximized ? 'Restore window' : 'Maximize window'"
+                [title]="maximized ? 'Restore' : 'Maximize'"
+                type="button">
+          <span aria-hidden="true">{{ maximized ? '□' : '■' }}</span>
         </button>
 
         <button *ngIf="canClose"
-                class="close-btn"
+                class="btn-retro close-btn"
                 (click)="onClose(); $event.stopPropagation()"
+                (keydown.enter)="onClose(); $event.stopPropagation()"
+                (keydown.space)="onClose(); $event.stopPropagation()"
                 aria-label="Close window"
-                title="Close">
-          <span>×</span>
+                title="Close"
+                type="button">
+          <span aria-hidden="true">×</span>
         </button>
       </div>
     </div>

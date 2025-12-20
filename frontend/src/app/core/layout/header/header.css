@@ -2,10 +2,8 @@
 
 /* ===== TASKBAR PRINCIPAL ===== */
 .taskbar,
-.taskbar *,
 .taskbar button,
-.taskbar span,
-.taskbar svg {
+.taskbar span {
   font-family:
     Ubuntu,
     -apple-system,
@@ -55,11 +53,6 @@
 }
 
 .taskbar .start-section .start-button {
-  background: var(--bg-button);
-  color: var(--text-main);
-  border: 1px solid var(--color-border-final);
-  border-radius: 0;
-  padding: 2px 12px;
   height: 100%;
   width: fit-content;
   min-width: auto;
@@ -70,9 +63,8 @@
   gap: 6px;
   font-weight: 500;
   font-size: 0.72rem; /* ~13px */
-  cursor: pointer;
   user-select: none;
-  transition: all 0.25s ease;
+  padding: 2px 12px;
 }
 
 .taskbar .start-section .start-button:hover {
@@ -83,12 +75,6 @@
 .taskbar .start-section .start-button:focus-visible {
   outline: 2px solid #7D929D;
   outline-offset: 1px;
-}
-
-.taskbar .start-section .start-button:active,
-.taskbar .start-section .start-button.is-pressed {
-  background: var(--tab-bg-sunken);
-  border-style: inset;
 }
 
 .start-icon {
@@ -129,11 +115,6 @@
 }
 
 .taskbar .taskbar-tabs .taskbar-tab {
-  background: var(--bg-button);
-  color: var(--text-main);
-  border: 1px solid var(--color-border-final);
-  border-radius: 0;
-  padding: 2px 12px;
   height: 100%;
   min-width: 120px;
   max-width: 200px;
@@ -141,12 +122,11 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  cursor: pointer;
   user-select: none;
   white-space: nowrap;
   overflow: hidden;
-  transition: all 0.15s ease;
   box-sizing: border-box;
+  padding: 2px 12px;
 }
 
 .taskbar .taskbar-tabs .taskbar-tab:hover:not(.is-active) {
@@ -159,14 +139,13 @@
   outline-offset: 1px;
 }
 
-.taskbar .taskbar-tabs .taskbar-tab.is-active {
+.taskbar .taskbar-tabs .taskbar-tab.is-active,
+.taskbar .taskbar-tabs .taskbar-tab:active {
+  box-shadow: none;
+  transform: translate(1px, 1px);
+  border-color: var(--retro-border-dark) var(--retro-border-light) var(--retro-border-light) var(--retro-border-dark);
+  /* Optional: Add a background change to reinforce the active state */
   background: var(--tab-bg-sunken);
-  border-style: inset;
-}
-
-.taskbar .taskbar-tabs .taskbar-tab:active:not(.is-active) {
-  background: var(--tab-bg-sunken);
-  border-style: inset;
 }
 
 .tab-icon {
@@ -194,44 +173,35 @@
 }
 
 .taskbar .systray .systray-icon {
-  background: var(--bg-button);
-  border: 1px solid var(--color-border-final);
-  border-radius: 0;
-  padding: 2px 10px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-main);
   height: 100%;
-  width: fit-content;
-  min-width: auto;
-  max-width: none;
-  flex: 0 0 auto;
-  transition: all 0.25s ease;
-  box-sizing: border-box;
+  padding: 2px 10px;
   font-size: 11px;
   line-height: 1;
+  color: var(--text-main); /* Ensure currentColor resolves correctly */
+}
+
+.taskbar .systray .systray-icon > svg {
+  display: block;
+  width: 13px;
+  height: 13px;
+  fill: currentColor; /* Inherit color from parent */
+  stroke: currentColor; /* Inherit color from parent */
 }
 
 .taskbar .systray .systray-icon:hover {
-  background: var(--tab-bg-sunken);
+  background: color-mix(in srgb, var(--bg-button) 90%, var(--tab-bg-sunken) 10%);
   transform: translateY(-1px);
 }
 
-.taskbar .systray .systray-icon:focus-visible {
-  outline: 2px solid #7D929D;
-  outline-offset: 1px;
-}
-
+/* Forzar la animación retro en el estado activo del systray */
 .taskbar .systray .systray-icon:active {
-  background: var(--tab-bg-sunken);
-}
-
-.taskbar .systray .systray-icon svg {
-  display: block;
-  fill: var(--text-main);
-  stroke: var(--text-main);
+  box-shadow: none;
+  transform: translate(1px, 1px);
+  border-color: var(--retro-border-dark) var(--retro-border-light) var(--retro-border-light) var(--retro-border-dark);
 }
 
 /* ===== START MENU ===== */
@@ -295,6 +265,8 @@
   width: 14px;
   height: 14px;
   flex-shrink: 0;
+  fill: var(--text-main); /* Explicitly set fill color */
+  stroke: var(--text-main); /* Explicitly set stroke color */
 }
 
 .menu-item-title {

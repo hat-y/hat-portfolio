@@ -1,6 +1,7 @@
-import { Component, Input, Output, EventEmitter, HostListener, inject, computed, Signal } from '@angular/core';
+import { Component, Input, Output, EventEmitter, HostListener, inject, computed, Signal, ElementRef, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Navigation } from '../../services/navigation';
+import { FocusTrapService } from '../../services/focus-trap.service';
 
 export interface WindowPosition {
   top: number;
@@ -29,10 +30,13 @@ export interface WindowPosition {
 })
 export class WindowComponent {
   private readonly navigationService = inject(Navigation);
+  private readonly focusTrapService = inject(FocusTrapService);
+  private readonly elementRef = inject(ElementRef);
 
   // Inputs configurables
   @Input() windowId: string = '';
   @Input() title: string = 'Window';
+  @Input() icon: string = '';
   @Input() windowTop: string = '';
   @Input() windowLeft: string = '';
   @Input() windowWidth: string = '';
@@ -51,14 +55,22 @@ export class WindowComponent {
   @Output() focus = new EventEmitter<void>();
 
   // Computed properties
-  protected isActive = computed(() => {
+  protected isWindowActive = computed(() => {
     const tabs = this.navigationService.tabs();
     return tabs.find(tab => tab.id === this.windowId)?.active ?? false;
   });
 
   protected windowClass = computed(() =>
-    `window-component ${this.isActive() ? 'active' : 'inactive'} ${this.maximized ? 'maximized' : ''}`
+    `window-component ${this.isWindowActive() ? 'active' : 'inactive'} ${this.maximized ? 'maximized' : ''}`
   );
+
+  constructor() {
+    effect(() => {
+      if (this.isWindowActive()) {
+        this.focusTrapService.trapFocus(this.elementRef.nativeElement);
+      }
+    });
+  }
 
   // Métodos de control de ventana
   protected onMinimize(): void {
@@ -68,8 +80,9 @@ export class WindowComponent {
   protected onMaximize(): void {
     this.maximize.emit();
   }
-
+  
   protected onClose(): void {
+    this.focusTrapService.removeFocusTrap(this.elementRef.nativeElement);
     this.close.emit();
   }
 
@@ -94,5 +107,10 @@ export class WindowComponent {
   // Accessibility
   protected getAriaLabel(): string {
     return `${this.title} window. Press Escape to close, F11 to maximize.`;
+  }
+
+  // Método para template compatibility
+  protected isActive(): boolean {
+    return this.isWindowActive();
   }
 }

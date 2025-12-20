@@ -1,12 +1,13 @@
-import { Injectable, ElementRef, Renderer2 } from '@angular/core';
+import { Injectable, ElementRef } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FocusTrapService {
   private previousFocusElement: HTMLElement | null = null;
+  private keydownHandler: ((e: KeyboardEvent) => void) | null = null;
 
-  constructor(private renderer: Renderer2) {}
+  constructor() {}
 
   /**
    * Trap focus within a container element
@@ -26,8 +27,11 @@ export class FocusTrapService {
     const firstElement = focusableElements[0];
     firstElement.focus();
 
+    // Remove any existing handler
+    this.removeFocusTrap(containerElement);
+
     // Add keydown listener for tab navigation
-    const keydownHandler = (e: KeyboardEvent) => {
+    this.keydownHandler = (e: KeyboardEvent) => {
       if (e.key === 'Tab') {
         const lastElement = focusableElements[focusableElements.length - 1];
 
@@ -52,13 +56,20 @@ export class FocusTrapService {
       }
     };
 
-    this.renderer.listen('window', 'keydown', keydownHandler);
+    window.addEventListener('keydown', this.keydownHandler);
   }
 
   /**
    * Remove focus trap and restore previous focus
    */
   removeFocusTrap(containerElement: HTMLElement): void {
+    // Remove event listener
+    if (this.keydownHandler) {
+      window.removeEventListener('keydown', this.keydownHandler);
+      this.keydownHandler = null;
+    }
+
+    // Restore previous focus
     if (this.previousFocusElement && this.previousFocusElement.focus) {
       this.previousFocusElement.focus();
     }

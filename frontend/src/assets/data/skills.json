@@ -1,87 +1,63 @@
 [
   {
-    "folder": "languages",
-    "name": "Languages",
-    "icon": "💻",
+    "folder": "core",
+    "name": "Core Stack",
+    "icon": "🎯",
     "skills": [
       {
         "name": "TypeScript",
         "rating": 5,
-        "description": "Advanced type system mastery, generics, decorators, and compiler configuration"
+        "description": "Advanced types, generics, decorators, and compiler configuration",
+        "isTopSkill": true
       },
-      {
-        "name": "JavaScript",
-        "rating": 5,
-        "description": "ES6+, async/await, closures, prototypes, and modern patterns"
-      },
-      {
-        "name": "Python",
-        "rating": 4,
-        "description": "Backend development, scripting, data processing, and automation"
-      },
-      {
-        "name": "Java",
-        "rating": 4,
-        "description": "Spring Boot, microservices architecture, and enterprise applications"
-      },
-      {
-        "name": "SQL",
-        "rating": 5,
-        "description": "Complex queries, optimization, indexing, and database design"
-      },
-      {
-        "name": "Go",
-        "rating": 3,
-        "description": "Concurrent programming, microservices, and API development"
-      }
-    ]
-  },
-  {
-    "folder": "frameworks",
-    "name": "Frameworks & Libraries",
-    "icon": "📦",
-    "skills": [
       {
         "name": "Angular",
         "rating": 5,
-        "description": "Standalone components, signals, RxJS, state management, and performance optimization"
-      },
-      {
-        "name": "React",
-        "rating": 4,
-        "description": "Hooks, context, custom hooks, and modern patterns"
+        "description": "Signals, standalone components, RxJS, and performance optimization",
+        "isTopSkill": true
       },
       {
         "name": "Node.js",
         "rating": 5,
-        "description": "Express, NestJS, RESTful APIs, GraphQL, and microservices"
+        "description": "Express, NestJS, RESTful APIs, GraphQL, and microservices",
+        "isTopSkill": true
       },
       {
-        "name": "Next.js",
+        "name": "React/Next.js",
         "rating": 4,
-        "description": "SSR, SSG, API routes, and App Router"
+        "description": "Hooks, Server Components, SSR/SSG, and App Router"
       },
       {
-        "name": "Spring Boot",
+        "name": "JavaScript (ES6+)",
+        "rating": 5,
+        "description": "Async patterns, closures, prototypes, and modern syntax"
+      },
+      {
+        "name": "Python",
         "rating": 4,
-        "description": "RESTful services, JPA, security, and cloud deployment"
+        "description": "Backend development, scripting, automation, and data processing"
       },
       {
-        "name": "Vue.js",
-        "rating": 3,
-        "description": "Composition API, Vuex, and component architecture"
+        "name": "SQL",
+        "rating": 5,
+        "description": "Query optimization, complex joins, indexing, and database design"
+      },
+      {
+        "name": "MongoDB",
+        "rating": 4,
+        "description": "NoSQL design, aggregation pipelines, indexing, and performance"
       }
     ]
   },
   {
     "folder": "tools",
-    "name": "Tools & DevOps",
-    "icon": "🔧",
+    "name": "Tools & Workflow",
+    "icon": "🛠️",
     "skills": [
       {
-        "name": "Git & GitHub",
+        "name": "Git",
         "rating": 5,
-        "description": "Advanced workflows, branching strategies, and CI/CD integration"
+        "description": "Advanced workflows, branching strategies, rebasing, and CI/CD"
       },
       {
         "name": "Docker",
@@ -89,61 +65,65 @@
         "description": "Containerization, Docker Compose, and multi-stage builds"
       },
       {
-        "name": "Kubernetes",
-        "rating": 3,
-        "description": "Container orchestration, deployments, and services"
+        "name": "Testing",
+        "rating": 4,
+        "description": "Jest, Vitest, Jasmine, unit/integration testing, and TDD"
       },
       {
-        "name": "Jenkins",
+        "name": "Build Tools",
         "rating": 4,
-        "description": "CI/CD pipelines, automated testing, and deployment automation"
+        "description": "Webpack, Vite, esbuild, code splitting, and optimization"
       },
       {
-        "name": "Webpack/Vite",
+        "name": "CI/CD",
         "rating": 4,
-        "description": "Build optimization, code splitting, and module bundling"
-      },
-      {
-        "name": "Jest/Vitest",
-        "rating": 4,
-        "description": "Unit testing, integration testing, and test-driven development"
+        "description": "GitHub Actions, GitLab CI, automated testing and deployment"
       }
     ]
   },
   {
     "folder": "cloud",
-    "name": "Cloud & Infrastructure",
+    "name": "Cloud & Deploy",
     "icon": "☁️",
     "skills": [
       {
         "name": "AWS",
         "rating": 4,
-        "description": "EC2, S3, Lambda, RDS, CloudFormation, and serverless architecture"
+        "description": "EC2, S3, Lambda, RDS, CloudFormation, and serverless",
+        "isTopSkill": true
       },
       {
-        "name": "Google Cloud",
-        "rating": 3,
-        "description": "Compute Engine, Cloud Functions, and Cloud Storage"
-      },
-      {
-        "name": "Azure",
-        "rating": 3,
-        "description": "App Services, Functions, and Azure DevOps"
-      },
-      {
-        "name": "Vercel",
+        "name": "Deployment",
         "rating": 4,
-        "description": "Frontend deployment, edge functions, and analytics"
+        "description": "Vercel, Netlify, Railway, automated deployment pipelines"
+      }
+    ]
+  },
+  {
+    "folder": "design",
+    "name": "Design & UX",
+    "icon": "🎨",
+    "skills": [
+      {
+        "name": "Figma",
+        "rating": 4,
+        "description": "Prototyping, design systems, component libraries, collaboration",
+        "isTopSkill": true
       },
       {
-        "name": "Nginx",
-        "rating": 4,
-        "description": "Reverse proxy, load balancing, and server configuration"
+        "name": "Responsive Design",
+        "rating": 5,
+        "description": "Mobile-first approach, flexbox, grid, and adaptive layouts"
       },
       {
-        "name": "MongoDB Atlas",
+        "name": "Accessibility",
         "rating": 4,
-        "description": "Cloud database management, scaling, and optimization"
+        "description": "WCAG 2.1, ARIA, semantic HTML, keyboard navigation"
+      },
+      {
+        "name": "CSS/Sass",
+        "rating": 5,
+        "description": "Advanced layouts, animations, CSS-in-JS, and modern patterns"
       }
     ]
   }

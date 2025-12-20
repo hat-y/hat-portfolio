@@ -1,11 +1,12 @@
 import { Component, signal, computed, OnDestroy, WritableSignal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { Navigation } from '../../services/navigation';
 import { ThemeService, ThemeMode } from '../../services/theme.service';
 
 @Component({
   selector: 'app-header',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })

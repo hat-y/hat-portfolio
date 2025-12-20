@@ -2,7 +2,7 @@
   "name": "Facundo Gabriel Gayoso",
   "role": "Backend Developer Jr.",
   "tagline": "Diseñando y construyendo APIs limpias y mantenibles",
-  "avatar": "assets/images/profile.jpg",
+  "avatar": "assets/images/profile.png",
   "bio": [
     "Backend developer junior enfocado en construir APIs claras, seguras y fáciles de mantener. Me gusta trabajar con buenas prácticas, testing y documentación para que el código sea entendible para todo el equipo.",
     "Actualmente estoy profundizando en Node.js y TypeScript para el backend, y uso Angular en el frontend como herramienta para mostrar y consumir mis servicios. Me interesa especialmente el diseño de arquitectura backend, bases de datos relacionales y la observabilidad de los sistemas."

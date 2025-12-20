@@ -2,11 +2,13 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Navigation } from '../../core/services/navigation';
 import { DataService, Project } from '../../core/services/data.service';
+import { SharedModule } from '../../shared/shared.module';
+import { CardComponent } from '../../shared/components/card/card.component';
 
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, SharedModule, CardComponent],
   templateUrl: './projects.html',
   styleUrl: './projects.css',
 })

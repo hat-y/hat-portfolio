@@ -2,7 +2,7 @@
   <!-- Botón Home -->
   <div class="start-section">
     <button
-      class="start-button"
+      class="start-button btn-retro"
       [class.is-pressed]="showStartMenu()"
       (click)="toggleStartMenu()"
       type="button"
@@ -25,7 +25,7 @@
   <nav class="taskbar-tabs" role="tablist">
     @for (tab of openTabs(); track tab.id) {
       <button
-        class="taskbar-tab"
+        class="taskbar-tab btn-retro"
         [class.is-active]="tab.active"
         (click)="selectTab(tab.id)"
         type="button"
@@ -43,18 +43,18 @@
 
   <!-- System Tray -->
   <div class="systray">
-    <button class="systray-icon" type="button" title="Network" aria-label="Network">
-      <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor">
+    <button class="systray-icon btn-retro" type="button" title="Network" aria-label="Network">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" style="display: block;">
         <path d="M2 4h2v2H2V4zm4 0h2v2H6V4zm4 0h2v2h-2V4zm-8 4h2v2H2V8zm4 0h2v2H6V8zm4 0h2v2h-2V8zm-8 4h2v2H2v-2zm4 0h2v2H6v-2zm4 0h2v2h-2v-2z"/>
       </svg>
     </button>
-    <button class="systray-icon" type="button" title="Volume" aria-label="Volume">
-      <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor">
+    <button class="systray-icon btn-retro" type="button" title="Volume" aria-label="Volume">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" style="display: block;">
         <path d="M5 5v6H3V5h2zm2 0 4-3v12l-4-3V5z"/>
       </svg>
     </button>
     <button
-      class="systray-icon"
+      class="systray-icon btn-retro"
       type="button"
       (click)="toggleTheme()"
       [attr.title]="themeService.themeMode() === 'dark' ? 'Switch to Light Theme' : themeService.themeMode() === 'light' ? 'Switch to Auto Theme' : 'Switch to Dark Theme'"
@@ -71,7 +71,7 @@
         </svg>
       }
     </button>
-    <button class="systray-icon" type="button" title="Clock" aria-label="Clock">
+    <button class="systray-icon btn-retro" type="button" title="Clock" aria-label="Clock">
       {{ currentTime() }}
     </button>
   </div>
@@ -89,7 +89,8 @@
         <button
           class="start-menu-item"
           [class.is-open]="tab.open"
-          (click)="selectTab(tab.id)"
+          [routerLink]="['/', tab.id]"
+          (click)="toggleStartMenu()"
           type="button"
           role="menuitem"
           [attr.aria-label]="tab.title + (tab.open ? ' - Open' : ' - Closed')"

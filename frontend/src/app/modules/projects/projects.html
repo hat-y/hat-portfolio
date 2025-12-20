@@ -10,23 +10,30 @@
     } @else {
       <div class="projects-grid">
         @for (project of projects(); track project.id) {
-          <div class="project-card" [class.featured]="project.featured">
-            @if (project.featured) {
-              <span class="badge">⭐ Featured</span>
-            }
-            <div class="project-icon">💼</div>
-            <h3 class="project-name">{{ project.name }}</h3>
-            <p class="project-description">{{ project.description }}</p>
-            <div class="project-tech">
-              @for (tech of project.tech; track tech) {
-                <span class="tech-tag">{{ tech }}</span>
+          <app-card>
+            <div card-title>
+              {{ project.name }}
+              @if (project.featured) {
+                <span class="badge">⭐ Featured</span>
               }
             </div>
-            <div class="project-links">
-              <a [href]="project.github" target="_blank" rel="noopener noreferrer" class="project-link">GitHub</a>
-              <a [href]="project.demo" target="_blank" rel="noopener noreferrer" class="project-link">Demo</a>
+            <div card-body>
+              <p class="project-description">{{ project.description }}</p>
+              <div class="project-tags">
+                @for (tag of project.tech; track tag) {
+                  <span class="tag">{{ tag }}</span>
+                }
+              </div>
+              <div class="project-links">
+                @if (project.demo) {
+                  <a [href]="project.demo" target="_blank" rel="noopener noreferrer" class="btn-retro">Live Demo</a>
+                }
+                @if (project.github) {
+                  <a [href]="project.github" target="_blank" rel="noopener noreferrer" class="btn-retro">Source Code</a>
+                }
+              </div>
             </div>
-          </div>
+          </app-card>
         }
       </div>
     }
