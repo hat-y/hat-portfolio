@@ -6,7 +6,9 @@ export interface Project {
   id: string;
   name: string;
   description: string;
+  role?: string;
   tech: string[];
+  highlights?: string[];
   github: string;
   demo: string;
   featured: boolean;

@@ -1,4 +1,3 @@
-/* Terminal styles usando patrón About Me */
 :host {
   display: flex;
   flex-direction: column;
@@ -7,12 +6,12 @@
 }
 
 .terminal-content {
-  background: #2d2d2d;
-  color: #d4d4d4;
-  padding: 10px;
+  background: var(--gray-1000);
+  color: var(--gray-200);
+  padding: var(--space-3);
   font-family: 'Ubuntu Mono', 'Courier New', monospace;
-  font-size: 13px;
-  line-height: 1.2;
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
   overflow-y: auto;
   overflow-x: hidden;
   flex: 1;
@@ -27,7 +26,7 @@
 
 /* Override xterm default padding */
 :host ::ng-deep .xterm {
-  padding: 4px;
+  padding: var(--space-1);
 }
 
 :host ::ng-deep .xterm-viewport {
@@ -36,15 +35,15 @@
 
 .neofetch-container {
   display: flex;
-  gap: 24px;
-  margin-bottom: 10px;
+  gap: var(--space-6);
+  margin-bottom: var(--space-3);
 }
 
 .neofetch-logo {
-  color: #ffffff;
-  font-weight: normal;
+  color: var(--color-text-inverted);
+  font-weight: var(--font-weight-normal);
   font-family: 'Ubuntu Mono', 'Courier New', monospace;
-  font-size: 10px;
+  font-size: 10px; /* This is very specific, might not need a token */
   line-height: 1.05;
   white-space: pre;
 }
@@ -54,68 +53,47 @@
 }
 
 .neofetch-header {
-  font-weight: bold;
-  margin-bottom: 4px;
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-1);
 }
 
-.user {
+/* Terminal-specific colors. Could be tokenized if the theme is reused. */
+.user,
+.at,
+.host,
+.neofetch-separator,
+.neofetch-item .label,
+.prompt-user,
+.cursor {
   color: #88c090;
-}
-
-.at {
-  color: #88c090;
-}
-
-.host {
-  color: #88c090;
-}
-
-.neofetch-separator {
-  color: #88c090;
-  margin: 4px 0;
 }
 
 .neofetch-item {
   margin: 1px 0;
-  font-size: 12px;
-  line-height: 1.3;
-}
-
-.neofetch-item .label {
-  color: #88c090;
-  font-weight: bold;
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
 }
 
 .terminal-prompt {
-  margin-top: 8px;
+  margin-top: var(--space-2);
   display: flex;
   align-items: center;
-  gap: 4px;
-  font-size: 12px;
-}
-
-.prompt-user {
-  color: #88c090;
-  font-weight: bold;
+  gap: var(--space-1);
+  font-size: var(--font-size-sm);
 }
 
 .prompt-separator {
-  color: #ffffff;
+  color: var(--color-text-inverted);
 }
 
 .prompt-path {
-  color: #5599ff;
-  font-weight: bold;
+  color: #5599ff; /* Terminal-specific color */
+  font-weight: var(--font-weight-bold);
 }
 
 .prompt-symbol {
-  color: #ffffff;
-  margin-left: 2px;
-}
-
-.cursor {
-  color: #88c090;
-  animation: blink 1s infinite;
+  color: var(--color-text-inverted);
+  margin-left: var(--space-1);
 }
 
 @keyframes blink {
@@ -132,38 +110,23 @@
 .color-blocks {
   display: flex;
   gap: 0;
-  margin-top: 4px;
-  font-size: 12px;
+  margin-top: var(--space-1);
+  font-size: var(--font-size-sm);
 }
 
 .block {
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
 }
 
-.block-black {
-  color: #000000;
-}
-.block-red {
-  color: #cd0000;
-}
-.block-green {
-  color: #00cd00;
-}
-.block-yellow {
-  color: #cdcd00;
-}
-.block-blue {
-  color: #0000ee;
-}
-.block-magenta {
-  color: #cd00cd;
-}
-.block-cyan {
-  color: #00cdcd;
-}
-.block-white {
-  color: #e5e5e5;
-}
+/* Terminal-specific theme colors */
+.block-black { color: #000000; }
+.block-red { color: #cd0000; }
+.block-green { color: #00cd00; }
+.block-yellow { color: #cdcd00; }
+.block-blue { color: #0000ee; }
+.block-magenta { color: #cd00cd; }
+.block-cyan { color: #00cdcd; }
+.block-white { color: #e5e5e5; }
 
 /* Terminal scrollbar styling */
 .terminal-content::-webkit-scrollbar {
@@ -171,15 +134,15 @@
 }
 
 .terminal-content::-webkit-scrollbar-track {
-  background: #e8e8e8;
-  border-radius: 3px;
+  background: var(--gray-800);
+  border-radius: var(--border-radius-sm);
 }
 
 .terminal-content::-webkit-scrollbar-thumb {
-  background: #7E929B;
-  border-radius: 3px;
+  background: var(--brand-blue-gray);
+  border-radius: var(--border-radius-sm);
 }
 
 .terminal-content::-webkit-scrollbar-thumb:hover {
-  background: #6a7d85;
+  background: var(--gray-700);
 }

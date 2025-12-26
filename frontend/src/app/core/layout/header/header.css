@@ -1,49 +1,31 @@
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
-
 /* ===== TASKBAR PRINCIPAL ===== */
 .taskbar,
 .taskbar button,
 .taskbar span {
-  font-family:
-    Ubuntu,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    sans-serif;
-  font-size: 0.72rem; /* ~13px */
-  line-height: 1;
-  font-weight: 400;
-  font-style: normal;
-  font-variant: normal;
-  letter-spacing: 0;
-  word-spacing: 0;
-  text-transform: none;
-  font-stretch: normal;
-  -webkit-text-size-adjust: 100%;
-  -moz-text-size-adjust: 100%;
-  text-size-adjust: 100%;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: var(--font-family-main);
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-tight);
+  font-weight: var(--font-weight-normal);
 }
 
 .taskbar {
   position: fixed;
-  top: 8px;
+  top: var(--header-offset-top);
   left: 50%;
   transform: translateX(-50%);
   max-width: 1200px;
-  width: calc(100% - 32px);
-  height: 24px;
-  background: var(--bg-taskbar);
+  width: calc(100% - var(--space-8));
+  height: 28px; /* Further reduced height */
+  background: var(--color-background-taskbar);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--color-border-final);
-  border-radius: 0;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 0; /* No rounding */
   display: flex;
   align-items: stretch;
-  padding: 4px;
-  gap: 8px;
-  z-index: 9999;
+  padding: var(--space-1);
+  gap: var(--space-2);
+  z-index: var(--z-index-header);
 }
 
 /* ===== SECCIÓN START BUTTON ===== */
@@ -54,57 +36,67 @@
 
 .taskbar .start-section .start-button {
   height: 100%;
-  width: fit-content;
-  min-width: auto;
-  max-width: none;
-  flex: 0 0 auto;
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-weight: 500;
-  font-size: 0.72rem; /* ~13px */
+  gap: var(--space-1);
+  font-weight: var(--font-weight-medium);
   user-select: none;
-  padding: 2px 12px;
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--font-size-xs);
 }
 
 .taskbar .start-section .start-button:hover {
-  background: color-mix(in srgb, var(--bg-button) 90%, var(--tab-bg-sunken) 10%);
+  background: var(--gray-400);
   transform: translateY(-1px);
 }
 
-.taskbar .start-section .start-button:focus-visible {
-  outline: 2px solid #7D929D;
-  outline-offset: 1px;
-}
-
 .start-icon {
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   flex-shrink: 0;
 }
 
 .start-text {
-  font-size: 0.72rem; /* ~13px */
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  color: var(--text-main);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
 }
 
 /* ===== SEPARADOR ===== */
 .taskbar-separator {
   width: 1px;
   height: 80%;
-  margin: auto 4px;
+  margin: auto var(--space-1);
   background: rgba(0, 0, 0, 0.15);
   border: none;
+}
+
+/* ===== LAYOUT CONTROLS ===== */
+.layout-controls {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.layout-controls .btn-retro {
+  width: 24px; /* Slightly smaller button */
+  height: 100%;
+  padding: 0;
+}
+
+.layout-controls .btn-retro.is-active {
+  background: var(--color-background-sunken);
+  border-color: var(--retro-border-dark) var(--retro-border-light) var(--retro-border-light)
+    var(--retro-border-dark);
+  transform: translate(1px, 1px);
 }
 
 /* ===== TABS/VENTANAS ABIERTAS ===== */
 .taskbar-tabs {
   flex: 1;
   display: flex;
+  justify-content: flex-start;
   align-items: stretch;
-  gap: 5px;
+  gap: var(--space-1);
   overflow-x: auto;
   overflow-y: hidden;
   padding: 0;
@@ -116,60 +108,50 @@
 
 .taskbar .taskbar-tabs .taskbar-tab {
   height: 100%;
-  min-width: 120px;
-  max-width: 200px;
-  flex: 0 0 auto;
+  min-width: 70px;
+  max-width: 130px;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--space-1);
   user-select: none;
   white-space: nowrap;
   overflow: hidden;
   box-sizing: border-box;
-  padding: 2px 12px;
+  padding: var(--space-1);
+  font-size: var(--font-size-xs);
 }
 
 .taskbar .taskbar-tabs .taskbar-tab:hover:not(.is-active) {
-  background: color-mix(in srgb, var(--bg-button) 90%, var(--tab-bg-sunken) 10%);
+  background: var(--gray-400);
   transform: translateY(-1px);
-}
-
-.taskbar .taskbar-tabs .taskbar-tab:focus-visible {
-  outline: 2px solid #7D929D;
-  outline-offset: 1px;
 }
 
 .taskbar .taskbar-tabs .taskbar-tab.is-active,
 .taskbar .taskbar-tabs .taskbar-tab:active {
-  box-shadow: none;
-  transform: translate(1px, 1px);
-  border-color: var(--retro-border-dark) var(--retro-border-light) var(--retro-border-light) var(--retro-border-dark);
-  /* Optional: Add a background change to reinforce the active state */
-  background: var(--tab-bg-sunken);
+  background: var(--color-background-sunken);
 }
 
 .tab-icon {
-  width: 13px;
-  height: 13px;
+  width: 11px;
+  height: 11px;
   flex-shrink: 0;
-  fill: var(--text-main);
-  stroke: var(--text-main);
+  fill: var(--color-text-primary);
+  stroke: var(--color-text-primary);
 }
 
 .tab-title {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 11px;
-  font-weight: 400;
-  color: var(--text-main);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-primary);
 }
 
 /* ===== SYSTEM TRAY ===== */
 .systray {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: var(--space-1);
 }
 
 .taskbar .systray .systray-icon {
@@ -178,59 +160,52 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  padding: 2px 10px;
-  font-size: 11px;
-  line-height: 1;
-  color: var(--text-main); /* Ensure currentColor resolves correctly */
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-primary);
 }
 
 .taskbar .systray .systray-icon > svg {
   display: block;
-  width: 13px;
-  height: 13px;
-  fill: currentColor; /* Inherit color from parent */
-  stroke: currentColor; /* Inherit color from parent */
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+.taskbar .systray .volume-icon-btn {
+  color: var(--color-text-secondary);
 }
 
 .taskbar .systray .systray-icon:hover {
-  background: color-mix(in srgb, var(--bg-button) 90%, var(--tab-bg-sunken) 10%);
+  background: var(--gray-400);
   transform: translateY(-1px);
-}
-
-/* Forzar la animación retro en el estado activo del systray */
-.taskbar .systray .systray-icon:active {
-  box-shadow: none;
-  transform: translate(1px, 1px);
-  border-color: var(--retro-border-dark) var(--retro-border-light) var(--retro-border-light) var(--retro-border-dark);
 }
 
 /* ===== START MENU ===== */
 .start-menu {
   position: fixed;
-  top: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  margin-left: calc(-600px + 20px);
+  top: calc(var(--header-height) + var(--space-2));
+  left: var(--space-4);
   width: 220px;
-  background: var(--bg-button);
-  border: 1px solid var(--color-border-final);
-  border-radius: 0;
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
-  z-index: 10000;
+  background: var(--color-background-button);
+  border: 1px solid var(--color-border-strong);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-index-overlay);
   animation: slideDown 0.15s ease-out;
 }
 
 .start-menu-header {
-  background: var(--tab-bg-sunken);
-  color: var(--text-main);
-  padding: 8px 12px;
-  font-size: 11px;
-  font-weight: 500;
-  border-bottom: 1px solid var(--color-border-final);
+  background: var(--color-background-sunken);
+  color: var(--color-text-primary);
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  border-bottom: 1px solid var(--color-border-strong);
 }
 
 .start-menu-items {
-  padding: 4px;
+  padding: var(--space-1);
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -238,35 +213,30 @@
 
 .start-menu-item {
   background: transparent;
-  color: var(--text-main);
+  color: var(--color-text-primary);
   border: 1px solid transparent;
-  border-radius: 0;
-  padding: 6px 10px;
+  padding: var(--space-2) var(--space-3);
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
   cursor: pointer;
-  font-size: 11px;
+  font-size: var(--font-size-sm);
   transition: all 0.15s ease;
   text-align: left;
 }
 
 .start-menu-item:hover {
-  background: var(--tab-bg-sunken);
-  border-color: var(--color-border-final);
-}
-
-.start-menu-item.is-open {
-  font-weight: 500;
+  background: var(--color-background-sunken);
+  border-color: var(--color-border-strong);
 }
 
 .menu-item-icon {
   width: 14px;
   height: 14px;
   flex-shrink: 0;
-  fill: var(--text-main); /* Explicitly set fill color */
-  stroke: var(--text-main); /* Explicitly set stroke color */
+  fill: var(--color-text-primary);
+  stroke: var(--color-text-primary);
 }
 
 .menu-item-title {
@@ -274,47 +244,47 @@
 }
 
 .menu-item-status {
-  font-size: 8px;
-  color: #7cbb00;
+  font-size: var(--font-size-xs);
+  color: var(--brand-green);
   flex-shrink: 0;
 }
 
 @keyframes slideDown {
   from {
     opacity: 0;
-    transform: translateX(-50%) translateY(-10px);
+    transform: translateY(-10px);
   }
   to {
     opacity: 1;
-    transform: translateX(-50%) translateY(0);
+    transform: translateY(0);
   }
 }
 
 /* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
   .taskbar {
-    top: 4px;
-    width: calc(100% - 16px);
-    padding: 3px;
-    gap: 4px;
+    top: var(--space-1);
+    width: calc(100% - var(--space-4));
+    padding: var(--space-1);
+    gap: var(--space-1);
   }
-  
+
   .taskbar-tabs {
     gap: 3px;
   }
-  
+
   .taskbar-tab {
     min-width: 80px;
     max-width: 120px;
     padding: 2px 8px;
   }
-  
+
   .tab-title {
-    font-size: 0.65rem;
+    font-size: var(--font-size-xs);
   }
-  
+
   .start-menu {
-    width: calc(100% - 32px);
+    width: calc(100% - var(--space-8));
     max-width: 300px;
   }
 }
@@ -324,30 +294,30 @@
     height: 20px;
     padding: 2px;
   }
-  
+
   .start-button {
     padding: 2px 8px;
   }
-  
+
   .start-text {
-    display: none; /* Ocultar texto en móviles pequeños */
+    display: none;
   }
-  
+
   .taskbar-tab {
     min-width: 60px;
     max-width: 100px;
   }
-  
+
   .tab-icon {
     width: 10px;
     height: 10px;
   }
-  
+
   .systray-icon {
     width: 16px;
     height: 16px;
   }
-  
+
   .systray-icon svg {
     width: 9px;
     height: 9px;

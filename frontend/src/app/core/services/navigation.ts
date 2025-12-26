@@ -1,4 +1,5 @@
-import { Injectable, signal, Signal, WritableSignal } from '@angular/core';
+import { Injectable, signal, Signal, WritableSignal, effect, inject } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 export interface Tab {
   id: string;
@@ -24,9 +25,96 @@ export interface WindowPosition {
 })
 export class Navigation {
   private readonly _tabs: WritableSignal<Tab[]> = signal<Tab[]>([]);
+  private readonly _isReady: WritableSignal<boolean> = signal(false);
   private zIndexCounter = 100;
+  private readonly router = inject(Router);
+  private readonly activatedRoute = inject(ActivatedRoute);
+
+  // Prevent infinite loops
+  private _isNavigating = false;
+  private _lastSyncedUrl = '';
 
   readonly tabs: Signal<Tab[]> = this._tabs.asReadonly();
+  readonly isReady: Signal<boolean> = this._isReady.asReadonly();
+
+  constructor() {
+    effect(() => {
+      if (!this.isReady()) return;
+      if (this._isNavigating) return; // Skip if we're already navigating
+
+      const tabs = this._tabs();
+      const openTabs = tabs.filter(t => t.open && !t.minimized).map(t => t.id).join(',');
+      const activeTab = tabs.find(t => t.active && !t.minimized);
+
+      const newUrl = `${openTabs}|${activeTab?.id || ''}`;
+
+      // Only navigate if URL actually changed
+      if (newUrl === this._lastSyncedUrl) return;
+
+      const queryParams: { [key: string]: string | null } = {};
+      if (openTabs) {
+        queryParams['open'] = openTabs;
+      }
+      if (activeTab) {
+        queryParams['active'] = activeTab.id;
+      }
+
+      this._lastSyncedUrl = newUrl;
+      this._isNavigating = true;
+
+      this.router.navigate([], {
+        relativeTo: this.activatedRoute,
+        queryParams: Object.keys(queryParams).length > 0 ? queryParams : null,
+        queryParamsHandling: 'merge',
+        replaceUrl: true
+      }).then(() => {
+        // Reset flag after navigation completes
+        setTimeout(() => {
+          this._isNavigating = false;
+        }, 0);
+      });
+    });
+  }
+
+  setReady(isReady: boolean): void {
+    this._isReady.set(isReady);
+  }
+
+  initializeFromUrl(): void {
+    const params = this.activatedRoute.snapshot.queryParams;
+    const openParam = params['open'];
+    const activeParam = params['active'];
+
+    // Prevent triggering effect during initialization
+    this._isNavigating = true;
+
+    if (openParam) {
+      const openIds = openParam.split(',');
+      this._tabs.update(tabs => {
+        return tabs.map(tab => {
+          if (openIds.includes(tab.id)) {
+            return { ...tab, open: true, minimized: false };
+          }
+          return { ...tab, open: false };
+        });
+      });
+    }
+
+    if (activeParam) {
+      this.setActiveTab(activeParam);
+    }
+
+    // Store current URL state
+    const openTabs = this._tabs().filter(t => t.open && !t.minimized).map(t => t.id).join(',');
+    const activeTab = this._tabs().find(t => t.active && !t.minimized);
+    this._lastSyncedUrl = `${openTabs}|${activeTab?.id || ''}`;
+
+    // Allow effect to run after a delay
+    setTimeout(() => {
+      this._isNavigating = false;
+      this.setReady(true);
+    }, 100);
+  }
 
   registerTab(tab: Omit<Tab, 'active' | 'minimized' | 'open' | 'maximized' | 'zIndex'>): void {
     this._tabs.update((tabs: Tab[]): Tab[] => {
@@ -67,7 +155,7 @@ export class Navigation {
 
     return tabs;
   }
-
+  
   setActiveTab(tabId: string): void {
     this._tabs.update((tabs: Tab[]) => {
       return tabs.map((tab) => ({

@@ -1,42 +1,70 @@
 [
   {
     "id": "project-1",
-    "name": "E-Commerce Platform",
-    "description": "Full-stack e-commerce platform built with Angular and Node.js. Features include real-time inventory management, payment processing, and admin dashboard.",
-    "tech": ["Angular", "TypeScript", "Node.js", "MongoDB", "Express"],
-    "github": "https://github.com/yourusername/ecommerce-platform",
-    "demo": "https://ecommerce-demo.example.com",
+    "name": "E-Commerce REST API",
+    "description": "API REST escalable para plataforma e-commerce con autenticación JWT, pasarela de pagos integrada (MercadoPago), y sistema de inventario en tiempo real.",
+    "role": "Backend Developer & API Designer",
+    "tech": ["Node.js", "TypeScript", "Express", "PostgreSQL", "JWT", "Docker"],
+    "highlights": [
+      "Reducido latency en queries un 40% mediante optimización de índices",
+      "5,000+ requests diarias con 99.9% uptime",
+      "Implementado sistema de autenticación con refresh tokens",
+      "Documentación completa con Swagger/OpenAPI"
+    ],
+    "github": "https://github.com/yourusername/ecommerce-api",
+    "demo": "https://ecommerce-api-docs.example.com",
     "featured": true,
     "image": "assets/images/projects/ecommerce.png"
   },
   {
     "id": "project-2",
-    "name": "Task Management App",
-    "description": "Collaborative task management application with real-time updates. Built with React and Firebase for seamless team coordination.",
-    "tech": ["React", "Next.js", "TailwindCSS", "Firebase", "TypeScript"],
-    "github": "https://github.com/yourusername/task-manager",
-    "demo": "https://tasks-demo.example.com",
+    "name": "Task Management Backend",
+    "description": "Sistema backend para gestión colaborativa de tareas con WebSockets para actualizaciones en tiempo real, webhooks para integraciones, y arquitectura de microservicios.",
+    "role": "Backend Developer",
+    "tech": ["Node.js", "TypeScript", "MongoDB", "Socket.io", "Redis", "Docker"],
+    "highlights": [
+      "Arquitectura de eventos con WebSocket para sincronización real-time",
+      "Caché con Redis reduciendo carga de DB en 60%",
+      "API con rate limiting y validación de datos con Zod",
+      "Tests de integración con cobertura del 85%"
+    ],
+    "github": "https://github.com/yourusername/task-manager-backend",
+    "demo": "https://task-api-docs.example.com",
     "featured": false,
     "image": "assets/images/projects/tasks.png"
   },
   {
     "id": "project-3",
-    "name": "Weather Dashboard",
-    "description": "Beautiful weather dashboard with forecasts, maps, and alerts. Integrates multiple weather APIs for accurate data.",
-    "tech": ["Vue.js", "TypeScript", "Chart.js", "OpenWeather API"],
-    "github": "https://github.com/yourusername/weather-dashboard",
-    "demo": "https://weather-demo.example.com",
+    "name": "API Gateway & Microservices",
+    "description": "Gateway API con sistema de routing, load balancing, y circuit breakers para orquestar múltiples microservicios. Incluye monitoreo con Prometheus y Grafana.",
+    "role": "Backend Developer & DevOps",
+    "tech": ["Node.js", "TypeScript", "Docker", "Redis", "Nginx", "Prometheus"],
+    "highlights": [
+      "Gateway manejando 3+ microservicios con auto-scaling",
+      "Circuit breaker pattern para fault tolerance",
+      "Dashboard de monitoreo en tiempo real con métricas",
+      "Deploy automatizado con GitHub Actions"
+    ],
+    "github": "https://github.com/yourusername/api-gateway",
+    "demo": "https://api-gateway-docs.example.com",
     "featured": false,
-    "image": "assets/images/projects/weather.png"
+    "image": "assets/images/projects/gateway.png"
   },
   {
     "id": "project-4",
-    "name": "REST API Generator",
-    "description": "CLI tool to generate RESTful APIs with authentication, validation, and documentation. Speeds up backend development.",
-    "tech": ["Node.js", "Express", "Swagger", "JWT", "PostgreSQL"],
-    "github": "https://github.com/yourusername/api-generator",
-    "demo": "https://api-generator-docs.example.com",
+    "name": "Clean Code CLI Tool",
+    "description": "Herramienta CLI para generar scaffolding de APIs REST con arquitectura limpia, validación, testing, y documentación automáticas. Acelera el desarrollo de nuevos proyectos.",
+    "role": "Full Stack Developer",
+    "tech": ["Node.js", "TypeScript", "Commander.js", "Inquirer", "EJS"],
+    "highlights": [
+      "Genera proyectos con estructura SOLID y separación de capas",
+      "Templates pre-configurados con TypeScript y ESLint",
+      "Integración con Jest para testing automático",
+      "500+ descargas en NPM, utilizado por equipo de desarrollo"
+    ],
+    "github": "https://github.com/yourusername/clean-code-cli",
+    "demo": "https://www.npmjs.com/package/clean-code-cli",
     "featured": false,
-    "image": "assets/images/projects/api.png"
+    "image": "assets/images/projects/cli.png"
   }
 ]

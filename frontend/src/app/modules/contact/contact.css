@@ -6,60 +6,55 @@
 }
 
 .contact-content {
-  padding: 40px;
+  padding: var(--space-8);
   overflow-y: auto;
-  background: var(--bg-content);
+  background: var(--color-background-content);
   flex: 1;
   text-align: center;
 }
 
 .contact-content h2 {
-  font-size: 28px;
-  font-weight: 700;
-  margin: 0 0 40px 0;
-  color: var(--text-primary);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 var(--space-8) 0;
+  color: var(--color-text-primary);
 }
 
 .contact-methods {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  margin-bottom: 40px;
+  gap: var(--space-5);
+  margin-bottom: var(--space-8);
 }
 
 .contact-item {
   display: flex;
   align-items: center;
-  gap: var(--space-md);
-  padding: var(--space-md);
-  background: var(--bg-elevated);
-  border: 1px solid var(--color-border-final);
-  border-radius: 6px;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  background: var(--color-background-elevated);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--border-radius-md);
   text-decoration: none;
   color: inherit;
   transition: all 0.2s ease;
-  min-height: 60px; /* Target size mejorado */
+  min-height: 60px;
 }
 
 .contact-item:hover {
-  background: var(--bg-button);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: var(--gray-400);
+  box-shadow: var(--shadow-md);
   transform: translateY(-1px);
 }
 
-.contact-item:focus-visible {
-  outline: 2px solid #7D929D;
-  outline-offset: 2px;
-}
-
 .contact-icon {
-  font-size: 28px;
+  font-size: var(--font-size-2xl);
   flex-shrink: 0;
 }
 
 .contact-label {
   font-size: var(--font-size-xs);
-  color: var(--text-muted);
+  color: var(--color-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   flex: 1;
@@ -67,48 +62,43 @@
 }
 
 .contact-value {
-  font-size: var(--font-size-sm);
-  color: var(--text-primary);
-  font-weight: 500;
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-medium);
 }
 
 .cv-section {
-  padding: 30px 0;
-  border-top: 1px solid var(--color-medium-gray);
+  padding: var(--space-8) 0;
+  border-top: 1px solid var(--gray-500);
 }
 
 .download-cv-btn {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-sm);
-  padding: var(--space-sm) var(--space-lg);
-  background: var(--bg-button);
-  border: 2px solid var(--color-border-final);
-  border-radius: 6px;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-6);
+  background: var(--color-background-button);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--border-radius-md);
   font-size: var(--font-size-base);
-  font-weight: 600;
-  color: var(--text-main);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
   cursor: pointer;
   transition: all 0.2s ease;
-  min-height: 48px; /* WCAG recomendación */
+  min-height: 48px;
   position: relative;
   overflow: hidden;
 }
 
 .download-cv-btn:hover {
-  background: var(--tab-bg-sunken);
+  background: var(--gray-400);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.download-cv-btn:focus-visible {
-  outline: 2px solid #7D929D;
-  outline-offset: 2px;
+  box-shadow: var(--shadow-md);
 }
 
 .download-cv-btn:active {
   transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-sm);
 }
 
 .download-cv-btn:disabled {
@@ -118,7 +108,7 @@
 }
 
 .download-cv-btn span:first-child {
-  font-size: 24px;
+  font-size: var(--font-size-xl);
 }
 
 /* Contact scrollbar styling */
@@ -127,15 +117,15 @@
 }
 
 .contact-content::-webkit-scrollbar-track {
-  background: var(--color-medium-gray);
-  border-radius: 3px;
+  background: var(--gray-300);
+  border-radius: var(--border-radius-sm);
 }
 
 .contact-content::-webkit-scrollbar-thumb {
-  background: var(--color-medium-gray);
-  border-radius: 3px;
+  background: var(--brand-blue-gray);
+  border-radius: var(--border-radius-sm);
 }
 
 .contact-content::-webkit-scrollbar-thumb:hover {
-  background: var(--color-shadow-medium);
+  background: var(--gray-800);
 }

@@ -6,7 +6,7 @@
      (click)="onFocus()"
      [class.active-window]="isActive()">
 
-  <!-- Window Header -->
+  <!-- Window Header - FUERA del body para que no tenga borde beige -->
   <div class="window-header">
     <div class="title-bar">
       <span *ngIf="icon" class="window-icon" aria-hidden="true">{{ icon }}</span>
@@ -51,8 +51,11 @@
     </div>
   </div>
 
-  <!-- Window Content -->
-  <div class="window-content">
-    <ng-content></ng-content>
+  <!-- Window Body - SOLO el contenido con bordes beige -->
+  <div class="window-body">
+    <!-- Window Content -->
+    <div class="window-content">
+      <ng-content></ng-content>
+    </div>
   </div>
 </div>

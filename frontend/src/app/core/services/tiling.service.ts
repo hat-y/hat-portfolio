@@ -16,10 +16,11 @@ export type LayoutMode = 'grid' | 'main-horizontal' | 'main-vertical' | 'floatin
   providedIn: 'root',
 })
 export class TilingService {
-  private readonly _layoutMode: WritableSignal<LayoutMode> = signal<LayoutMode>('grid');
+  private readonly _layoutMode: WritableSignal<LayoutMode> = signal<LayoutMode>('floating');
   private readonly _windowGap = signal(24);
   private readonly _margin = signal(40);
-  private readonly _headerHeight = 40;
+  // Header height calculation: offset(8) + taskbar_height(28) + padding(4) + border(2) + gap(8) = 50
+  private readonly _headerHeight = 50;
   private readonly _lockPositions = signal(false);
 
   readonly layoutMode = this._layoutMode.asReadonly();
@@ -61,11 +62,75 @@ export class TilingService {
     return positions;
   }
 
+  calculateFloatingPositions(
+    tabs: Tab[],
+    currentPositions: Map<string, WindowPosition>,
+  ): Map<string, WindowPosition> {
+    const newPositions = new Map<string, WindowPosition>(currentPositions);
+    const openWindows = tabs.filter((t) => t.open && !t.minimized && !t.maximized);
+    const { headerHeight, margin, availableWidth, availableHeight } = this.getDimensions();
+
+    // Preferred dimensions for single window - UX optimized for desktop portfolio content
+    // 1000×620px provides comfortable viewing space without being overwhelming
+    const preferredWidth = 1000;
+    const preferredHeight = 620;
+    const offset = 30;
+
+    // Remove positions for closed windows
+    for (const id of newPositions.keys()) {
+      if (!openWindows.some((w) => w.id === id)) {
+        newPositions.delete(id);
+      }
+    }
+
+    // If there is only one window, center it with preferred size
+    if (openWindows.length === 1) {
+      const window = openWindows[0];
+
+      // Use preferred size, but ensure it fits within viewport
+      const width = Math.min(preferredWidth, availableWidth - (margin * 2));
+      const height = Math.min(preferredHeight, availableHeight);
+
+      // Center in available space
+      const centeredLeft = margin + (availableWidth - width) / 2;
+      const centeredTop = headerHeight + margin + (availableHeight - height) / 2;
+
+      newPositions.set(window.id, {
+        top: centeredTop,
+        left: centeredLeft,
+        width: width,
+        height: height
+      });
+      return newPositions;
+    }
+
+    // Add positions for new windows (cascade if more than one)
+    openWindows.forEach((window, index) => {
+      if (!newPositions.has(window.id)) {
+        // For multiple windows, use base size and cascade
+        const newPosition = {
+          top: headerHeight + margin + (index * offset),
+          left: margin + (index * offset),
+          width: Math.min(preferredWidth, availableWidth - (margin * 2)),
+          height: Math.min(preferredHeight, availableHeight),
+        };
+        newPositions.set(window.id, newPosition);
+      }
+    });
+
+    return newPositions;
+  }
+
   private getDimensions() {
+    // Safe window access with fallbacks
+    const isBrowser = typeof window !== 'undefined' && window.innerWidth;
+    const windowWidth = isBrowser ? window.innerWidth : 1200;
+    const windowHeight = isBrowser ? window.innerHeight : 800;
+
     return {
       headerHeight: this._headerHeight,
-      availableWidth: window.innerWidth - (this._margin() * 2),
-      availableHeight: window.innerHeight - this._headerHeight - (this._margin() * 2),
+      availableWidth: windowWidth - (this._margin() * 2),
+      availableHeight: windowHeight - this._headerHeight - (this._margin() * 2),
       margin: this._margin(),
       gap: this._windowGap()
     };
@@ -225,30 +290,34 @@ export class TilingService {
 
   private calculateFloatingLayout(windows: Tab[], positions: Map<string, WindowPosition>): void {
     const { headerHeight, margin } = this.getDimensions();
-    const baseWidth = 650;
-    const baseHeight = 400;
+    const baseWidth = 1000;
+    const baseHeight = 620;
     const offset = 30;
 
-    windows.forEach((window, index) => {
+    windows.forEach((windowTab, index) => {
       // Para una sola ventana, centrarla con tamaño optimizado
       if (windows.length === 1) {
-        const preferredWidth = 680;
-        const preferredHeight = 450;
+        const preferredWidth = 1000;
+        const preferredHeight = 620;
 
-        // Calcular posición centrada
-        const centeredLeft = Math.max(margin, (globalThis.innerWidth - preferredWidth) / 2);
-        const centeredTop = headerHeight + Math.max(margin, (globalThis.innerHeight - headerHeight - 100 - preferredHeight) / 2);
+        // Calcular posición centrada con safe window access
+        const isBrowser = typeof window !== 'undefined' && window.innerWidth;
+        const browserWidth = isBrowser ? window.innerWidth : 1200;
+        const browserHeight = isBrowser ? window.innerHeight : 800;
 
-        positions.set(window.id, {
+        const centeredLeft = Math.max(margin, (browserWidth - preferredWidth) / 2);
+        const centeredTop = headerHeight + Math.max(margin, (browserHeight - headerHeight - 100 - preferredHeight) / 2);
+
+        positions.set(windowTab.id, {
           top: centeredTop,
           left: centeredLeft,
-          width: Math.min(preferredWidth, globalThis.innerWidth - margin * 2),
-          height: Math.min(preferredHeight, globalThis.innerHeight - headerHeight - 100)
+          width: Math.min(preferredWidth, browserWidth - margin * 2),
+          height: Math.min(preferredHeight, browserHeight - headerHeight - 100)
         });
         return;
       }
 
-      positions.set(window.id, {
+      positions.set(windowTab.id, {
         top: headerHeight + margin + (index * offset),
         left: margin + (index * offset),
         width: baseWidth,

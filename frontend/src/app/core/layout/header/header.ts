@@ -1,8 +1,17 @@
-import { Component, signal, computed, OnDestroy, WritableSignal, inject } from '@angular/core';
+import {
+  Component,
+  signal,
+  computed,
+  OnDestroy,
+  WritableSignal,
+  inject,
+  Signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { Navigation } from '../../services/navigation';
+import { Navigation, Tab } from '../../services/navigation';
 import { ThemeService, ThemeMode } from '../../services/theme.service';
+import { TilingService, LayoutMode } from '../../services/tiling.service';
 
 @Component({
   selector: 'app-header',
@@ -13,6 +22,7 @@ import { ThemeService, ThemeMode } from '../../services/theme.service';
 export class Header implements OnDestroy {
   private readonly navigationService = inject(Navigation);
   protected readonly themeService = inject(ThemeService);
+  protected readonly tilingService = inject(TilingService);
 
   protected readonly currentTime: WritableSignal<string> = signal(
     new Date().toLocaleTimeString('en-US', {
@@ -22,12 +32,10 @@ export class Header implements OnDestroy {
     }),
   );
 
-  // Los tabs ahora vienen del servicio
-  protected readonly tabs = this.navigationService.tabs;
+  protected readonly tabs: Signal<Tab[]> = this.navigationService.tabs;
 
-  // Solo mostrar tabs abiertos en el header
-  protected readonly openTabs = computed(() => {
-    return this.tabs().filter((tab) => tab.open);
+  protected readonly openTabs: Signal<Tab[]> = computed(() => {
+    return this.tabs().filter((tab: Tab): boolean => tab.open);
   });
 
   protected showStartMenu: WritableSignal<boolean> = signal(false);
@@ -53,18 +61,20 @@ export class Header implements OnDestroy {
   }
 
   toggleStartMenu(): void {
-    this.showStartMenu.update((val) => !val);
+    this.showStartMenu.update((val: boolean): boolean => !val);
   }
 
   selectTab(tabId: string): void {
-    const tab = this.tabs().find((t) => t.id === tabId);
+    const tab = this.tabs().find((t: Tab): boolean => t.id === tabId);
     if (tab?.open && !tab.minimized && tab.active) {
-      // Si está abierto, visible y activo, minimizar
       this.navigationService.toggleMinimize(tabId);
     } else {
-      // En cualquier otro caso (cerrado, minimizado, o no activo), activar/restaurar
       this.navigationService.setActiveTab(tabId);
     }
+  }
+
+  setLayout(mode: LayoutMode): void {
+    this.tilingService.setLayoutMode(mode);
   }
 
   /**

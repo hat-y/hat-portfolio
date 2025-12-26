@@ -10,30 +10,55 @@
     } @else {
       <div class="projects-grid">
         @for (project of projects(); track project.id) {
-          <app-card>
-            <div card-title>
-              {{ project.name }}
-              @if (project.featured) {
-                <span class="badge">⭐ Featured</span>
-              }
-            </div>
-            <div card-body>
+          <article class="project-card" [class.featured]="project.featured">
+            <header class="project-header">
+              <div class="project-title-section">
+                <h3 class="project-name">
+                  {{ project.name }}
+                  @if (project.featured) {
+                    <span class="featured-badge">⭐ Featured</span>
+                  }
+                </h3>
+                @if (project.role) {
+                  <p class="project-role">{{ project.role }}</p>
+                }
+              </div>
+            </header>
+
+            <div class="project-body">
               <p class="project-description">{{ project.description }}</p>
-              <div class="project-tags">
-                @for (tag of project.tech; track tag) {
-                  <span class="tag">{{ tag }}</span>
+
+              @if (project.highlights && project.highlights.length > 0) {
+                <div class="project-highlights">
+                  <h4 class="highlights-title">Key Achievements</h4>
+                  <ul class="highlights-list">
+                    @for (highlight of project.highlights; track $index) {
+                      <li class="highlight-item">{{ highlight }}</li>
+                    }
+                  </ul>
+                </div>
+              }
+
+              <div class="project-tech">
+                @for (tech of project.tech; track tech) {
+                  <span class="tech-tag">{{ tech }}</span>
                 }
               </div>
+
               <div class="project-links">
-                @if (project.demo) {
-                  <a [href]="project.demo" target="_blank" rel="noopener noreferrer" class="btn-retro">Live Demo</a>
-                }
                 @if (project.github) {
-                  <a [href]="project.github" target="_blank" rel="noopener noreferrer" class="btn-retro">Source Code</a>
+                  <a [href]="project.github" target="_blank" rel="noopener noreferrer" class="project-link github-link">
+                    <span aria-hidden="true">📦</span> GitHub
+                  </a>
+                }
+                @if (project.demo) {
+                  <a [href]="project.demo" target="_blank" rel="noopener noreferrer" class="project-link demo-link">
+                    <span aria-hidden="true">🔗</span> Live Demo
+                  </a>
                 }
               </div>
             </div>
-          </app-card>
+          </article>
         }
       </div>
     }

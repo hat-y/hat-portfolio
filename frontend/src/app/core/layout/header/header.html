@@ -43,12 +43,49 @@
 
   <!-- System Tray -->
   <div class="systray">
+    <!-- Layout Controls -->
+    <div class="layout-controls btn-retro-group">
+      <button
+        class="btn-retro"
+        (click)="setLayout('floating')"
+        [class.is-active]="tilingService.layoutMode() === 'floating'"
+        title="Floating Layout"
+        aria-label="Switch to Floating Layout">
+        <svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 3h12v2H2zM4 7h10v2H4zM7 11h7v2H7z" fill="currentColor"/></svg>
+      </button>
+      <button
+        class="btn-retro"
+        (click)="setLayout('grid')"
+        [class.is-active]="tilingService.layoutMode() === 'grid'"
+        title="Grid Layout"
+        aria-label="Switch to Grid Layout">
+        <svg width="16" height="16" viewBox="0 0 16 16"><path d="M1 1h6v6H1zM9 1h6v6H9zM1 9h6v6H1zM9 9h6v6H9z" fill="currentColor"/></svg>
+      </button>
+      <button
+        class="btn-retro"
+        (click)="setLayout('main-vertical')"
+        [class.is-active]="tilingService.layoutMode() === 'main-vertical'"
+        title="Main Vertical Layout"
+        aria-label="Switch to Main Vertical Layout">
+        <svg width="16" height="16" viewBox="0 0 16 16"><path d="M1 1h8v14H1zM10 1h5v6h-5zM10 9h5v6h-5z" fill="currentColor"/></svg>
+      </button>
+      <button
+        class="btn-retro"
+        (click)="setLayout('main-horizontal')"
+        [class.is-active]="tilingService.layoutMode() === 'main-horizontal'"
+        title="Main Horizontal Layout"
+        aria-label="Switch to Main Horizontal Layout">
+       <svg width="16" height="16" viewBox="0 0 16 16"><path d="M1 1h14v8H1zM1 10h6v5H1zM8 10h7v5H8z" fill="currentColor"/></svg>
+      </button>
+    </div>
+    <div class="taskbar-separator"></div>
+
     <button class="systray-icon btn-retro" type="button" title="Network" aria-label="Network">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" style="display: block;">
         <path d="M2 4h2v2H2V4zm4 0h2v2H6V4zm4 0h2v2h-2V4zm-8 4h2v2H2V8zm4 0h2v2H6V8zm4 0h2v2h-2V8zm-8 4h2v2H2v-2zm4 0h2v2H6v-2zm4 0h2v2h-2v-2z"/>
       </svg>
     </button>
-    <button class="systray-icon btn-retro" type="button" title="Volume" aria-label="Volume">
+    <button class="systray-icon btn-retro volume-icon-btn" type="button" title="Volume" aria-label="Volume">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" style="display: block;">
         <path d="M5 5v6H3V5h2zm2 0 4-3v12l-4-3V5z"/>
       </svg>
@@ -89,8 +126,7 @@
         <button
           class="start-menu-item"
           [class.is-open]="tab.open"
-          [routerLink]="['/', tab.id]"
-          (click)="toggleStartMenu()"
+          (click)="selectTab(tab.id); toggleStartMenu()"
           type="button"
           role="menuitem"
           [attr.aria-label]="tab.title + (tab.open ? ' - Open' : ' - Closed')"

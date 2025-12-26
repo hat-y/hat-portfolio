@@ -1,129 +1,91 @@
 [
   {
-    "folder": "core",
-    "name": "Core Stack",
-    "icon": "🎯",
+    "folder": "backend",
+    "name": "Backend Development",
+    "icon": "⚙️",
     "skills": [
       {
-        "name": "TypeScript",
-        "rating": 5,
-        "description": "Advanced types, generics, decorators, and compiler configuration",
-        "isTopSkill": true
-      },
-      {
-        "name": "Angular",
-        "rating": 5,
-        "description": "Signals, standalone components, RxJS, and performance optimization",
-        "isTopSkill": true
-      },
-      {
         "name": "Node.js",
-        "rating": 5,
-        "description": "Express, NestJS, RESTful APIs, GraphQL, and microservices",
+        "rating": 4,
+        "description": "Express, Fastify, RESTful APIs, middleware, y arquitectura de microservicios",
         "isTopSkill": true
       },
       {
-        "name": "React/Next.js",
+        "name": "TypeScript",
         "rating": 4,
-        "description": "Hooks, Server Components, SSR/SSG, and App Router"
+        "description": "Type-safe backend architecture, advanced types, generics, y patrones de diseño",
+        "isTopSkill": true
       },
       {
-        "name": "JavaScript (ES6+)",
-        "rating": 5,
-        "description": "Async patterns, closures, prototypes, and modern syntax"
-      },
-      {
-        "name": "Python",
+        "name": "PostgreSQL",
         "rating": 4,
-        "description": "Backend development, scripting, automation, and data processing"
-      },
-      {
-        "name": "SQL",
-        "rating": 5,
-        "description": "Query optimization, complex joins, indexing, and database design"
+        "description": "Diseño de bases de datos relacionales, optimización de queries, indexing, y transacciones"
       },
       {
         "name": "MongoDB",
+        "rating": 3,
+        "description": "NoSQL para casos específicos, aggregation pipelines, y basic indexing"
+      },
+      {
+        "name": "REST APIs",
         "rating": 4,
-        "description": "NoSQL design, aggregation pipelines, indexing, and performance"
+        "description": "Diseño de APIs RESTful, documentación, versioning, y mejores prácticas de arquitectura"
       }
     ]
   },
   {
-    "folder": "tools",
-    "name": "Tools & Workflow",
+    "folder": "frontend",
+    "name": "Frontend",
+    "icon": "🖥️",
+    "skills": [
+      {
+        "name": "Angular",
+        "rating": 4,
+        "description": "Consumo de APIs REST, signals, standalone components, y RxJS para manejo de datos asíncronos"
+      }
+    ]
+  },
+  {
+    "folder": "devops",
+    "name": "DevOps & Tools",
     "icon": "🛠️",
     "skills": [
       {
         "name": "Git",
-        "rating": 5,
-        "description": "Advanced workflows, branching strategies, rebasing, and CI/CD"
+        "rating": 4,
+        "description": "Flujos de trabajo con branching, pull requests, y colaboración en equipo"
       },
       {
         "name": "Docker",
-        "rating": 4,
-        "description": "Containerization, Docker Compose, and multi-stage builds"
+        "rating": 3,
+        "description": "Containerización, Docker Compose, y basic multi-stage builds"
       },
+      {
+        "name": "Linux",
+        "rating": 3,
+        "description": "Administración de servidores, scripting con bash, y manejo de servicios"
+      }
+    ]
+  },
+  {
+    "folder": "practices",
+    "name": "Best Practices",
+    "icon": "✓",
+    "skills": [
       {
         "name": "Testing",
-        "rating": 4,
-        "description": "Jest, Vitest, Jasmine, unit/integration testing, and TDD"
+        "rating": 3,
+        "description": "Unit testing, integration testing, y test-driven development"
       },
       {
-        "name": "Build Tools",
+        "name": "Clean Code",
         "rating": 4,
-        "description": "Webpack, Vite, esbuild, code splitting, and optimization"
+        "description": "SOLID principles, clean architecture, y patrones de diseño mantenibles"
       },
       {
-        "name": "CI/CD",
+        "name": "Documentation",
         "rating": 4,
-        "description": "GitHub Actions, GitLab CI, automated testing and deployment"
-      }
-    ]
-  },
-  {
-    "folder": "cloud",
-    "name": "Cloud & Deploy",
-    "icon": "☁️",
-    "skills": [
-      {
-        "name": "AWS",
-        "rating": 4,
-        "description": "EC2, S3, Lambda, RDS, CloudFormation, and serverless",
-        "isTopSkill": true
-      },
-      {
-        "name": "Deployment",
-        "rating": 4,
-        "description": "Vercel, Netlify, Railway, automated deployment pipelines"
-      }
-    ]
-  },
-  {
-    "folder": "design",
-    "name": "Design & UX",
-    "icon": "🎨",
-    "skills": [
-      {
-        "name": "Figma",
-        "rating": 4,
-        "description": "Prototyping, design systems, component libraries, collaboration",
-        "isTopSkill": true
-      },
-      {
-        "name": "Responsive Design",
-        "rating": 5,
-        "description": "Mobile-first approach, flexbox, grid, and adaptive layouts"
-      },
-      {
-        "name": "Accessibility",
-        "rating": 4,
-        "description": "WCAG 2.1, ARIA, semantic HTML, keyboard navigation"
-      },
-      {
-        "name": "CSS/Sass",
-        "rating": 5,
-        "description": "Advanced layouts, animations, CSS-in-JS, and modern patterns"
+        "description": "API documentation (Swagger/OpenAPI), READMEs, y code documentation"
       }
     ]
   }

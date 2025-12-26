@@ -16,9 +16,12 @@ export class ThemeService {
     // Load saved theme preference
     this.loadThemePreference();
 
-    // Apply theme when mode changes
+    // Apply theme when mode changes - with delay to ensure DOM is ready
     effect(() => {
-      this.applyTheme(this._themeMode());
+      // Defer theme application to next tick to avoid blocking bootstrap
+      setTimeout(() => {
+        this.applyTheme(this._themeMode());
+      }, 0);
     });
 
     // Listen for system theme changes when in auto mode

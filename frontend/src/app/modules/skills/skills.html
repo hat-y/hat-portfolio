@@ -1,194 +1,51 @@
-<main class="file-manager-window" role="application" aria-label="Technical skills explorer">
+<main class="skills-content" role="main" aria-label="Technical skills">
   @if (loading()) {
     <div class="loading-state" role="status" aria-live="polite">
       <p>Loading technical skills...</p>
     </div>
   } @else {
-    <!-- Thunar-Style Navigation Bar -->
-    <div class="thunar-nav-bar">
-      <!-- Navigation Buttons - Left -->
-      <div class="nav-buttons">
-        <button class="nav-btn btn-retro" (click)="goBack()" [disabled]="!currentCategory()" title="Back" aria-label="Go back">
-          <span class="nav-icon">◀</span>
-        </button>
-        <button class="nav-btn btn-retro" (click)="goForward()" [disabled]="!canGoForward()" title="Forward" aria-label="Go forward">
-          <span class="nav-icon">▶</span>
-        </button>
-      </div>
+    <header class="skills-header">
+      <h1>Technical Skills</h1>
+      <p class="skills-subtitle">Backend Development • APIs • Clean Architecture</p>
+    </header>
 
-      <!-- Path Bar -->
-      <div class="path-bar">
-        <span class="path-text">
-          <span class="path-link" (click)="goHome()">Home</span>
-          <span class="path-separator" aria-hidden="true">></span>
-          <span class="path-link current">Skills</span>
-          @if (currentCategory()) {
-            <span class="path-separator" aria-hidden="true">></span>
-            <span class="path-link current">{{ currentCategory()!.name }}</span>
-          }
-        </span>
-      </div>
+    <section class="skills-categories" aria-label="Skill categories">
+      @for (category of skillsCategories(); track category.name) {
+        <article class="skill-category-section">
+          <header class="category-header">
+            <span class="category-icon" aria-hidden="true">{{ category.icon }}</span>
+            <h2 class="category-title">{{ category.name }}</h2>
+            <span class="category-count">{{ category.skills.length }} technologies</span>
+          </header>
 
-      <!-- Search Field - Right -->
-      <div class="search-container">
-        <input
-          type="text"
-          placeholder="Search..."
-          class="search-input"
-          aria-label="Search"
-          [(ngModel)]="searchTerm"
-          (input)="onSearch($event)">
-      </div>
-    </div>
-
-    <!-- Main Content Area with Places Sidebar -->
-    <div class="file-manager-content">
-      <!-- Places Sidebar - Left -->
-      <aside class="places-sidebar" role="navigation" aria-label="Portfolio navigation">
-        <!-- Profile Section -->
-        <div class="section-header">PROFILE</div>
-        <a href="#about" class="place-item" (click)="navigateToSection('about')">
-          <span class="place-icon">👤</span>
-          <span class="place-text">About / Whoami</span>
-        </a>
-
-        <!-- Work Section -->
-        <div class="section-header">WORK</div>
-        <a href="#projects" class="place-item" (click)="navigateToSection('projects')">
-          <span class="place-icon">📁</span>
-          <span class="place-text">Projects</span>
-        </a>
-
-        <!-- Skills Section (Current) -->
-        <div class="section-header">SKILLS</div>
-        <button class="place-item skill-category"
-                [class.active]="!currentCategory() || currentCategory()?.name === 'Core Stack'"
-                (click)="openCategoryByName('Core Stack')"
-                [attr.aria-current]="!currentCategory() ? 'page' : null">
-          <span class="place-icon">🎯</span>
-          <span class="place-text">Core Stack</span>
-        </button>
-        <button class="place-item skill-category"
-                [class.active]="currentCategory()?.name === 'Tools & Workflow'"
-                (click)="openCategoryByName('Tools & Workflow')">
-          <span class="place-icon">🛠️</span>
-          <span class="place-text">Tools & Workflow</span>
-        </button>
-        <button class="place-item skill-category"
-                [class.active]="currentCategory()?.name === 'Cloud & Deploy'"
-                (click)="openCategoryByName('Cloud & Deploy')">
-          <span class="place-icon">☁️</span>
-          <span class="place-text">Cloud & Deploy</span>
-        </button>
-        <button class="place-item skill-category"
-                [class.active]="currentCategory()?.name === 'Design & UX'"
-                (click)="openCategoryByName('Design & UX')">
-          <span class="place-icon">🎨</span>
-          <span class="place-text">Design & UX</span>
-        </button>
-
-        <!-- Contact Section -->
-        <div class="section-header">CONTACT</div>
-        <a href="#contact" class="place-item" (click)="navigateToSection('contact')">
-          <span class="place-icon">✉️</span>
-          <span class="place-text">Contact & Links</span>
-        </a>
-      </aside>
-
-      <!-- Skills Display Area -->
-      <section class="skills-display" role="region" aria-label="Skill details">
-        @if (!currentCategory()) {
-          <!-- Categories Overview -->
-          <div class="categories-overview">
-            <div class="overview-header">
-              <h2 class="overview-title">📊 Skill Categories</h2>
-              <p class="overview-subtitle">Browse technologies by area of expertise</p>
-            </div>
-
-            <div class="categories-grid">
-              @for (category of filteredCategories(); track category.name) {
-                <app-card>
-                  <div card-title>
-                    <span class="card-icon" aria-hidden="true">{{ category.icon }}</span>
-                    {{ category.name }}
+          <div class="skills-grid">
+            @for (skill of category.skills; track skill.name) {
+              <div class="skill-card" [class.featured]="skill.isTopSkill">
+                <div class="skill-header">
+                  <div class="skill-info">
+                    <h3 class="skill-name">
+                      {{ skill.name }}
+                      @if (skill.isTopSkill) {
+                        <span class="top-skill-badge">⭐ Core</span>
+                      }
+                    </h3>
+                    <p class="skill-description">{{ skill.description }}</p>
                   </div>
-                  <div card-body
-                       role="button"
-                       tabindex="0"
-                       (click)="openCategory(category)"
-                       (keydown.enter)="openCategory(category)"
-                       (keydown.space)="openCategory(category)"
-                       [attr.aria-label]="`${category.name} category with ${category.skills.length} technologies`">
-                    <div class="card-stats">
-                      <div class="stat-item">
-                        <span class="stat-number">{{ category.skills.length }}</span>
-                        <span class="stat-label">Technologies</span>
-                      </div>
-                      <div class="stat-item">
-                        <span class="stat-number">{{ getAverageRating(category).toFixed(1) }}</span>
-                        <span class="stat-label">Avg. Rating</span>
-                      </div>
-                    </div>
+
+                  <div class="skill-rating" role="img" [attr.aria-label]="`${skill.name} proficiency level`">
+                    @for (star of getStars(skill.rating); track $index) {
+                      <span class="rating-star"
+                            [class.filled]="star.filled"
+                            aria-hidden="true">★</span>
+                    }
+                    <span class="skill-level-text">{{ getSkillLevel(skill.rating) }}</span>
                   </div>
-                </app-card>
-              }
-            </div>
-          </div>
-        } @else {
-          <!-- Skills Detail View -->
-          <div class="skills-detail">
-            <div class="detail-header">
-              <div class="category-info">
-                <span class="category-icon-detail">{{ currentCategory()!.icon }}</span>
-                <div>
-                  <h2 class="category-title">{{ currentCategory()!.name }}</h2>
-                  <p class="category-desc">{{ currentCategory()!.skills.length }} technologies in this category</p>
                 </div>
               </div>
-            </div>
-
-            <div class="skills-list">
-              @for (skill of currentCategory()!.skills; track skill.name) {
-                <article class="skill-item" [class.featured]="skill.isTopSkill">
-                  <div class="skill-header">
-                    <div class="skill-main-info">
-                      <span class="skill-icon" aria-hidden="true">
-                        @if (skill.isTopSkill) {
-                          ⭐
-                        } @else {
-                          {{ getSkillIcon(skill.name) }}
-                        }
-                      </span>
-                      <div class="skill-name-group">
-                        <h3 class="skill-name">
-                          {{ skill.name }}
-                          @if (skill.isTopSkill) {
-                            <span class="featured-badge">Top Skill</span>
-                          }
-                        </h3>
-                        <p class="skill-description">{{ skill.description }}</p>
-                      </div>
-                    </div>
-
-                    <div class="skill-rating-wrapper">
-                      <div class="skill-rating"
-                           role="img"
-                           [attr.aria-label]="`${skill.name} proficiency: ${skill.rating}/5 - ${getSkillLevel(skill.rating)}`">
-                        @for (star of getStars(skill.rating); track $index) {
-                          <span class="rating-star"
-                                [class.filled]="star.filled"
-                                [attr.aria-label]="star.filled ? 'Expert' : 'Learning'">★</span>
-                        }
-                      </div>
-                      <span class="skill-level">{{ getSkillLevel(skill.rating) }}</span>
-                    </div>
-                  </div>
-                </article>
-              }
-            </div>
+            }
           </div>
-        }
-      </section>
-    </div>
+        </article>
+      }
+    </section>
   }
 </main>

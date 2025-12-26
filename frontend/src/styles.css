@@ -1,73 +1,125 @@
-/* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
 @import 'xterm/css/xterm.css';
 
 :root {
-  /* Fondos */
-  --bg-desktop: #3a333a; /* fondo general*/
-  --bg-window: #d2cabd; /* fondo base */
-  --bg-content: #ffffff; /* fondo de contenido (antes #F5F5F5) */
-  --bg-elevated: #f8f8f8; /* fondos elevados */
-  
-  /* Bordes y sombras */
-  --border-3d: #6c6c6c; /* sombra/borde  */
-  --color-light-highlight: #ffffff; /* luz blanca */
-  --color-window-light: #f0ece8; /* luz suave para marcos de ventana */
-  --color-dark-shadow: #6c6c6c; /* sombra gris oscuro */
-  --color-medium-gray: #c0c0c0; /* gris neutro de la barra de tareas */
-  --color-input-sunken: #aaaaaa; /* area del icono de input */
-  --color-shadow-medium: #808080; /* sombra media */
-  --shadow-active-window: 0 8px 24px rgba(0, 0, 0, 0.3), 0 2px 6px rgba(0,0,0,0.1);
-  --color-border-final: #000;
+  /* ==========================================================================
+     1. Brand & Palette
+     ========================================================================== */
+  --brand-purple: #3a333a;
+  --brand-pink: #ff4466;
+  --brand-magenta: #990066;
+  --brand-green: #88c090;
+  --brand-blue-gray: #7d929d;
 
-  /* Tokens para Estilo Retro */
-  --retro-bg: #c0c0c0;
-  --retro-border-light: #ffffff;
-  --retro-border-dark: #808080;
-  --retro-border-black: #000000;
-  
-  /* Acentos */
-  --accent-terminal: #88c090; /* acento terminal  */
-  --accent-pink: #ff4466; /* acento artístico 1 (menos fuerte) */
-  --accent-magenta: #990066; /* acento artístico 2 */
-  --accent-select: #7D929D; /* acento de selección - azul-gris profesional */
-  --accent-selection: #ff5555;
-  
-  /* Textos - MEJORADO para mejor contraste WCAG AA/AAA */
-  --text-primary: #000000; /* texto principal - contraste 21:1 */
-  --text-secondary: #2d2d2d; /* texto secundario - contraste 12.6:1 (WCAG AAA) */
-  --text-muted: #666666; /* texto desenfatizado - contraste 7:1 (WCAG AA) - CORREGIDO */
-  --text-main: #1a1a1a; /* texto de terminal / texto oscuro */
-  
-  /* UI */
-  --bg-taskbar: #d1cabc;
-  --bg-button: #c6c6c6;
-  --tab-bg-sunken: #b0b0b0;
-  
-  /* Espaciado consistente - Sistema mejorado */
-  --space-1: 0.25rem;   /* 4px */
-  --space-2: 0.5rem;    /* 8px */
-  --space-3: 0.75rem;   /* 12px */
-  --space-4: 1rem;      /* 16px */
-  --space-6: 1.5rem;    /* 24px */
-  --space-8: 2rem;      /* 32px */
+  --gray-100: #f8f8f8;
+  --gray-200: #f0ece8;
+  --gray-300: #d2cabd;
+  --gray-400: #c6c6c6;
+  --gray-500: #c0c0c0;
+  --gray-600: #b0b0b0;
+  --gray-700: #808080;
+  --gray-800: #6c6c6c;
+  --gray-900: #4a4a4a;
+  --gray-1000: #2d2d2d;
 
-  /* Legacy para compatibilidad */
-  --space-xs: 0.5rem;   /* 8px */
-  --space-sm: 1rem;     /* 16px */
-  --space-md: 1.5rem;   /* 24px */
-  --space-lg: 2rem;     /* 32px */
-  --space-xl: 3rem;     /* 48px */
-  --space-2xl: 4rem;    /* 64px */
+  /* Beige personalizado para marcos */
+  --beige-frame: #D2CCBC;
+  --beige-frame-light: #E8E4DC;
+  --beige-frame-dark: #A8A298;
 
-  /* Tipografía */
-  --font-size-xs: 0.75rem;   /* 12px */
-  --font-size-sm: 0.875rem;  /* 14px */
-  --font-size-base: 1rem;    /* 16px */
-  --font-size-lg: 1.125rem;  /* 18px */
-  --font-size-xl: 1.25rem;   /* 20px */
-  --font-size-2xl: 1.5rem;   /* 24px */
-  --font-size-3xl: 2rem;     /* 32px */
+  /* ==========================================================================
+     2. Semantic Colors (Light Theme)
+     ========================================================================== */
+  --color-background-desktop: var(--brand-purple);
+  --color-background-window: var(--gray-300);
+  --color-background-content: #ffffff;
+  --color-background-elevated: var(--gray-100);
+  --color-background-taskbar: var(--gray-300);
+  --color-background-button: var(--gray-400);
+  --color-background-sunken: var(--gray-600);
+
+  --color-text-primary: #000000;
+  --color-text-secondary: var(--gray-1000);
+  --color-text-muted: var(--gray-900);
+  --color-text-inverted: #ffffff;
+
+  --color-accent-primary: var(--brand-blue-gray);
+  --color-accent-secondary: var(--brand-green);
+  --color-accent-danger: var(--brand-pink);
+
+  --color-border-default: var(--gray-700);
+  --color-border-strong: #000000;
+  --color-border-highlight-light: #ffffff;
+  --color-border-highlight-dark: var(--gray-800);
+
+  /* ==========================================================================
+     3. Typography
+     ========================================================================== */
+  --font-family-main: 'Ubuntu', 'Tahoma', 'MS Sans Serif', 'Verdana', sans-serif;
+  --font-size-xs: 0.75rem; /* 12px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-base: 1rem; /* 16px */
+  --font-size-lg: 1.125rem; /* 18px */
+  --font-size-xl: 1.25rem; /* 20px */
+  --font-size-2xl: 1.5rem; /* 24px */
+  --font-size-3xl: 2rem; /* 32px */
+
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.4;
+  --line-height-relaxed: 1.6;
+
+  /* ==========================================================================
+     4. Spacing & Sizing
+     ========================================================================== */
+  --space-1: 0.25rem; /* 4px */
+  --space-2: 0.5rem; /* 8px */
+  --space-3: 0.75rem; /* 12px */
+  --space-4: 1rem; /* 16px */
+  --space-5: 1.25rem; /* 20px */
+  --space-6: 1.5rem; /* 24px */
+  --space-8: 2rem; /* 32px */
+  --space-12: 3rem; /* 48px */
+    --space-16: 4rem;   /* 64px */
+  
+    --header-height: 28px;
+  --header-offset-top: var(--space-2);
+  --header-total-space: calc(var(--header-height) + var(--header-offset-top));
+  
+  /* ==========================================================================
+     5. Borders & Shadows
+     ========================================================================== */
+  --border-radius-sm: 2px;
+  --border-radius-md: 4px;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.15);
+  --shadow-active-window: 0 8px 24px rgba(0, 0, 0, 0.3), 0 2px 6px rgba(0, 0, 0, 0.1);
+
+  /* ==========================================================================
+     6. Z-Indexes
+     ========================================================================== */
+  --z-index-default: 1;
+  --z-index-window: 100;
+  --z-index-window-active: 150;
+  --z-index-header: 500;
+  --z-index-window-maximized: 999; /* Higher than header */
+  --z-index-overlay: 1000;
+  --z-index-skip-link: 9999;
+
+  /* ==========================================================================
+     7. Components (Retro Button)
+     ========================================================================== */
+  --retro-bg: var(--gray-500);
+  --retro-border-light: var(--color-border-highlight-light);
+  --retro-border-dark: var(--color-border-highlight-dark);
+  --retro-border-black: var(--color-border-strong);
 }
 
 html,
@@ -82,7 +134,7 @@ body {
 }
 
 html {
-  font-size: 16px; /* Base size mejor para legibilidad */
+  font-size: 16px;
 }
 
 @media (max-width: 768px) {
@@ -93,7 +145,7 @@ html {
 
 body {
   font-family: 'Ubuntu', 'Tahoma', 'MS Sans Serif', 'Verdana', sans-serif;
-  image-rendering: auto; /* Renderizado suave para imágenes modernas */
+  image-rendering: auto;
 }
 
 /* Window transitions */
@@ -111,7 +163,7 @@ app-contact {
     background-size: cover;
     background-position: center;
   }
-  
+
   .window-overlay {
     backdrop-filter: blur(1px);
   }
@@ -134,6 +186,26 @@ app-contact {
   }
 }
 
+/* Skip Links for Accessibility */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--accent-terminal);
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 0;
+  z-index: 10000;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+  border: 1px solid var(--text-primary);
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
 /* Screen reader only content */
 .sr-only {
   position: absolute !important;
@@ -148,16 +220,17 @@ app-contact {
 }
 
 *:focus-visible {
-  outline: 3px solid #7D929D;
+  outline: 4px solid #7d929d;
   outline-offset: 2px;
+  background: rgba(125, 146, 157, 0.1);
+  border-radius: 2px;
 }
 
 /* Mejorar contraste de bordes para mejor accesibilidad */
-.window-component,
 .table-row,
 .menu-item,
 .tool-btn {
-  border-color: #808080; /* Más oscuro que el actual para mejor contraste */
+  border-color: #808080;
 }
 
 body button,
@@ -182,8 +255,10 @@ input:focus-visible,
 select:focus-visible,
 textarea:focus-visible,
 a:focus-visible {
-  outline: 2px solid #7D929D;
-  outline-offset: 1px;
+  outline: 4px solid #7d929d;
+  outline-offset: 2px;
+  background: rgba(125, 146, 157, 0.1);
+  border-radius: 2px;
 }
 
 /* Ocultar outline por defecto pero mantener foco-visible */
@@ -195,40 +270,100 @@ a:focus {
   outline: none;
 }
 
-/* ===== NUEVO SISTEMA DE BOTONES RETRO ===== */
+/* ===== Tipografia ===== */
+h1 {
+  font-size: var(--font-size-3xl); /* 32px */
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  margin-bottom: var(--space-6);
+  color: var(--text-primary);
+}
+
+h2 {
+  font-size: var(--font-size-2xl); /* 24px */
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-normal);
+  margin-bottom: var(--space-4);
+  color: var(--text-primary);
+}
+
+h3 {
+  font-size: var(--font-size-xl); /* 20px */
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+  margin-bottom: var(--space-3);
+  color: var(--text-primary);
+}
+
+h4 {
+  font-size: var(--font-size-lg); /* 18px */
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+  margin-bottom: var(--space-2);
+  color: var(--text-primary);
+}
+
+p {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--space-4);
+  color: var(--text-secondary);
+}
+
+.small,
+.text-small {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+/* ===== SISTEMA DE BOTONES RETRO  ===== */
 .btn-retro {
   background-color: var(--retro-bg);
   border: 1px solid;
-  border-color: var(--retro-border-light) var(--retro-border-dark) var(--retro-border-dark) var(--retro-border-light);
+  border-color: var(--retro-border-light) var(--retro-border-dark) var(--retro-border-dark)
+    var(--retro-border-light);
   box-shadow: 1px 1px 0px 0px var(--retro-border-black);
   padding: 3px 8px;
   font-family: 'Ubuntu', 'Tahoma', 'MS Sans Serif', 'Verdana', sans-serif;
   font-size: var(--font-size-sm);
   user-select: none;
   cursor: pointer;
-  
+
   /* Reset de estilos modernos */
   border-radius: 0;
-  transition: none; 
+  transition: none;
   transform: none;
 }
 
 .btn-retro:hover:not(:active) {
-  /* El hover en 98 no hace nada a menos que se especifique */
   transform: none;
 }
 
 .btn-retro:active,
 .btn-retro.is-pressed,
 .btn-retro.is-active {
-  /* Efecto de botón presionado */
-  border-color: var(--retro-border-dark) var(--retro-border-light) var(--retro-border-light) var(--retro-border-dark);
+  border-color: var(--retro-border-dark) var(--retro-border-light) var(--retro-border-light)
+    var(--retro-border-dark);
   box-shadow: none;
   transform: translate(1px, 1px);
 }
 
 .btn-retro:focus-visible {
-   /* Anillo de foco punteado clásico */
-   outline: 1px dotted var(--retro-border-black);
-   outline-offset: -4px;
+  outline: 4px solid #7d929d;
+  outline-offset: 2px;
+  background: rgba(125, 146, 157, 0.1);
+  border-radius: 2px;
 }

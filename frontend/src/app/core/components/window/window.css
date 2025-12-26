@@ -2,32 +2,64 @@
 
 :host {
   display: block;
+  position: absolute;
+  /* Los estilos top/left/width/height se controlan via HOST BINDINGS */
+  /* No usar valores CSS fijos para maximizado, usar solo !important cuando es necesario */
+
   animation: slideDown 0.4s ease-out;
   transform-origin: top left;
   transition: all 0.3s ease;
-  background: transparent; /* Asegurar que el host no tenga fondo */
+  background: transparent;
   padding: 0;
   margin: 0;
+}
+
+/* Estado maximizado - solo ajustar z-index y transform */
+:host(.is-maximized) {
+  z-index: var(--z-index-window-maximized) !important;
+  transform: none !important;
 }
 
 .window-component {
   position: relative;
   width: 100%;
   height: 100%;
-  background: #CDC8BF;
-  border: 4px solid var(--bg-window);
+  background: var(--color-background-window);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 16px 32px rgba(0, 0, 0, 0.15);
   overflow: visible;
 }
 
-:host.is-maximized .window-component {
-  transform: none;
+/* Container para content con bordes beige */
+.window-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  /* Borde beige con iluminación */
+  border: 4px solid var(--beige-frame);
+
+  /* Iluminación 3D */
+  box-shadow:
+    inset 1px 1px 0px 0px var(--beige-frame-light),
+    inset -1px -1px 0px 0px var(--beige-frame-dark);
+
+  overflow: hidden;
+}
+
+/* Cuando está activo, MÁS iluminación y contraste */
+.window-component.active-window .window-body {
+  border: 4px solid var(--beige-frame);
+
+  /* Iluminación más fuerte */
+  box-shadow:
+    inset 2px 2px 0px 0px #ffffff,
+    inset -2px -2px 0px 0px var(--beige-frame-dark);
 }
 
 .window-component:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25), 0 24px 48px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-active-window);
 }
 
 @keyframes slideDown {
@@ -41,18 +73,6 @@
   }
 }
 
-/* Estado maximized */
-.window-component.maximized {
-  position: fixed;
-  top: 50px;
-  left: 20px;
-  width: calc(100vw - 40px);
-  height: calc(100vh - 70px);
-  z-index: 9999;
-  transform: none;
-  transition: all 0.3s ease;
-}
-
 /* WINDOW HEADER & TITLE BAR */
 
 .window-header {
@@ -62,28 +82,28 @@
 .title-bar {
   display: flex;
   align-items: stretch;
-  padding: 3px;
-  background: var(--bg-taskbar);
-  color: var(--text-main);
-  font-size: 11px;
-  font-weight: 400;
+  padding: var(--space-1);
+  background: var(--color-background-taskbar);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-normal);
   height: 22px;
   border-radius: 0;
-  border-bottom: 1px solid var(--color-border-final);
+  border-bottom: 1px solid var(--color-border-default);
   cursor: default;
 }
 
 .window-icon {
   display: flex;
   align-items: center;
-  padding-left: 6px;
+  padding-left: var(--space-2);
   flex-shrink: 0;
 }
 
 .window-title {
   flex-grow: 1;
   text-align: center;
-  min-width: 0; /* Allow title to shrink */
+  min-width: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -98,23 +118,21 @@
 
 .window-controls {
   display: flex;
-  gap: 2px;
+  gap: var(--space-1);
   align-items: stretch;
 }
 
 .minimize-btn,
 .maximize-btn,
 .close-btn {
-  /* Base .btn-retro styles */
   background-color: var(--retro-bg);
   border: 1px solid;
   border-color: var(--retro-border-light) var(--retro-border-dark) var(--retro-border-dark) var(--retro-border-light);
-  box-shadow: 2px 2px 0px 0px var(--retro-border-black);
+  box-shadow: 1px 1px 0px 0px var(--retro-border-black);
   
-  /* Original layout styles */
   width: 22px;
   height: 20px;
-  font-size: 10px;
+  font-size: var(--font-size-xs);
   line-height: 1;
   padding: 0;
   display: inline-flex;
@@ -128,8 +146,8 @@
 }
 
 .close-btn:hover {
-  background: #dc3545;
-  color: white;
+  background: var(--color-accent-danger);
+  color: var(--color-text-inverted);
   transform: translateY(-1px);
 }
 
@@ -148,7 +166,7 @@
   padding: 0;
   margin: 0;
   overflow: hidden;
-  background: transparent;
+  background: var(--color-background-content);
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -160,77 +178,61 @@
 }
 
 .window-content::-webkit-scrollbar-track {
-  background: #e8e8e8;
-  border-radius: 3px;
+  background: var(--gray-200);
+  border-radius: var(--border-radius-sm);
 }
 
 .window-content::-webkit-scrollbar-thumb {
-  background: #7E929B;
-  border-radius: 3px;
+  background: var(--brand-blue-gray);
+  border-radius: var(--border-radius-sm);
 }
 
 .window-content::-webkit-scrollbar-thumb:hover {
-  background: #6a7d85;
+  background: var(--gray-800);
 }
 
-.window-component:focus {
-  outline: 2px solid #7D929D;
-  outline-offset: 2px;
-}
-
-.window-component:focus:not(:focus-visible) {
-  outline: none;
-}
-
-/* Active window state */
+/* Active window state - title bar completely blue, beige borders on content only */
 .window-component.active-window {
   box-shadow: var(--shadow-active-window);
-  border: 1px solid var(--accent-select);
 }
 
+/* Cuando está activo, el window-body mantiene el borde con más iluminación */
+.window-component.active-window .window-body {
+  /* Mantenemos el borde de 4px para consistencia visual */
+  border: 4px solid var(--beige-frame);
+
+  /* Active: más iluminación y profundidad */
+  box-shadow:
+    inset 2px 2px 0px 0px #ffffff,              /* Highlight blanco puro */
+    inset -2px -2px 0px 0px var(--beige-frame-dark);  /* Sombra beige oscuro */
+}
+
+/* Title bar completamente azul cuando está activo */
 .window-component.active-window .title-bar {
-  background: var(--accent-select);
-  color: var(--color-light-highlight);
+  background: var(--color-accent-primary);
+  color: var(--color-text-inverted);
+  border-bottom: 1px solid var(--color-accent-primary);
 }
 
 .window-component.active-window .window-icon {
-  color: var(--color-light-highlight);
-}
-
-.minimize-btn:focus-visible,
-.maximize-btn:focus-visible,
-.close-btn:focus-visible {
-  outline: 2px solid #7D929D;
-  outline-offset: 1px;
+  color: var(--color-text-inverted);
 }
 
 /* RESPONSIVE DESIGN */
 
 @media (max-width: 768px) {
-  .window-component {
-    width: calc(100vw - 40px);
-    min-width: 300px;
-  }
-
-  .window-component.maximized {
-    top: 40px;
-    left: 10px;
-    width: calc(100vw - 20px);
-    height: calc(100vh - 50px);
+  :host(.is-maximized) {
+    /* Ensure proper visibility on mobile - but let host bindings control position */
+    z-index: var(--z-index-window-maximized) !important;
   }
 }
 
 @media (max-width: 480px) {
-  .window-component {
-    width: calc(100vw - 20px);
-    left: 10px !important;
-  }
-
   .window-content {
-    padding: 10px;
+    padding: var(--space-2);
   }
 
   .window-title span {
-    font-size: 10px;
+    font-size: var(--font-size-xs);
   }
 }

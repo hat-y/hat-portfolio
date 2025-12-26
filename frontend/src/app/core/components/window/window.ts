@@ -17,12 +17,11 @@ export interface WindowPosition {
   styleUrl: './window.css',
   host: {
     'class': 'window-wrapper',
-    '[style.position]': 'maximized ? "fixed" : "absolute"',
-    '[style.top]': 'maximized ? "50px" : windowTop',
-    '[style.left]': 'maximized ? "20px" : windowLeft',
-    '[style.width]': 'maximized ? "calc(100vw - 40px)" : windowWidth',
-    '[style.height]': 'maximized ? "calc(100vh - 70px)" : windowHeight',
-    '[style.z-index]': 'maximized ? 9999 : windowZIndex',
+    '[style.top]': 'windowTop',
+    '[style.left]': 'windowLeft',
+    '[style.width]': 'windowWidth',
+    '[style.height]': 'windowHeight',
+    '[style.z-index]': 'windowZIndex',
     '[attr.data-maximized]': 'maximized',
     '[class.is-maximized]': 'maximized',
     '[style.display]': 'visible ? "block" : "none"'

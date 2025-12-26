@@ -16,6 +16,10 @@
           <h1 class="profile-name">{{ profile()!.name }}</h1>
           <h2 class="profile-role">{{ profile()!.role }}</h2>
           <p class="profile-tagline">{{ profile()!.tagline }}</p>
+          <div class="cta-buttons">
+            <a href="#projects" class="cta-button cta-primary" routerLink="/projects" (click)="$event.preventDefault()">Ver Proyectos</a>
+            <a [href]="'mailto:' + profile()!.contact.email" class="cta-button cta-secondary">Contactar</a>
+          </div>
         </div>
       </header>
 
